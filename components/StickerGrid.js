@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./StickerGrid.module.css";
-import Image from "next/image";
+
 
 export default function StickerGrid({ stickers, onDownload }) {
     if (!stickers || stickers.length === 0) return null;
