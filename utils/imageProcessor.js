@@ -162,41 +162,13 @@ const removeBackground = (ctx, width, height, mode) => {
     ctx.putImageData(imageData, 0, 0);
 };
 
-// Helper to patch bottom-right watermark
-const removeWatermark = (ctx, width, height) => {
-    // Approx size of Gemini flare in bottom right is small.
-    // Let's assume a safe box of 80x80px from the corner.
-    const patchW = 80;
-    const patchH = 80;
-
-    // Sample color from just outside the patch area (left of it)
-    // x: width - patchW - 5
-    // y: height - patchH / 2
-    const sampleX = Math.max(0, width - patchW - 10);
-    const sampleY = Math.max(0, height - 30); // Sample near bottom
-
-    const p = ctx.getImageData(sampleX, sampleY, 1, 1).data;
-    const color = `rgb(${p[0]}, ${p[1]}, ${p[2]})`;
-
-    // Fill the corner
-    ctx.fillStyle = color;
-    // We cover a bit more to be safe
-    ctx.fillRect(width - patchW, height - patchH, patchW, patchH);
-};
+// Helper to remove background based on Chroma Key - REMOVED removeWatermark
 
 export const processSticker = (imageSource, bgMode = 'none') => {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
             // Step 1: Create a temp canvas for the original image
-            // We want to remove background BEFORE resize if requested, 
-            // or we could do it on the resized version. 
-            // Doing it on the original high-res chunk is usually sharper, 
-            // but might be slower for huge images. 
-            // Given the chunks aren't massive, let's try processing the source first if needed.
-
-            // However, imageSource is already a slice (DataURL).
-
             let tempCanvas = document.createElement("canvas");
             let tempCtx = tempCanvas.getContext("2d");
             tempCanvas.width = img.width;
@@ -207,9 +179,13 @@ export const processSticker = (imageSource, bgMode = 'none') => {
                 removeBackground(tempCtx, img.width, img.height, bgMode);
             }
 
-            // Step 2: Resize Logic
-            // Use the processed tempCanvas as source for resizing
+            // Clean up source Blob URL if it was created specifically for this op
+            // Note: In splitImage, we create objectURLs for slices.
+            // If imageSource is a Blob URL we own, we should revoke it.
+            // But processSticker might be called with a persistent ID or Base64.
+            // For now, we rely on the caller (splitImage) to revoke its own creations.
 
+            // Step 2: Resize Logic
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
 
@@ -285,8 +261,9 @@ export const processMainOrTab = (imageSource, type = 'main') => {
     });
 };
 
-export const splitImage = (file, rows, cols, bgMode = 'none', removeWatermarkFlag = false) => {
+export const splitImage = (file, rows, cols, bgMode = 'none') => {
     return new Promise((resolve, reject) => {
+        const fileUrl = URL.createObjectURL(file);
         const img = new Image();
         img.onload = async () => {
             const tempFullCanvas = document.createElement("canvas");
@@ -295,35 +272,48 @@ export const splitImage = (file, rows, cols, bgMode = 'none', removeWatermarkFla
             tempFullCanvas.height = img.height;
             tempFullCtx.drawImage(img, 0, 0);
 
-            // Remove Watermark FIRST (on the full image) if requested
-            if (removeWatermarkFlag) {
-                removeWatermark(tempFullCtx, img.width, img.height);
-            }
-
-            const chunkW = img.width / cols;
-            const chunkH = img.height / rows;
+            // Calculate chunk size (floor to avoid fraction issues)
+            const chunkW = Math.floor(img.width / cols);
+            const chunkH = Math.floor(img.height / rows);
             const promises = [];
 
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
                     const canvas = document.createElement("canvas");
-                    canvas.width = chunkW;
-                    canvas.height = chunkH;
+
+                    // Logic to handle remaining pixels in the last row/col
+                    // to avoid gaps or missing edges due to rounding
+                    const x = c * chunkW;
+                    const y = r * chunkH;
+
+                    // If last column, take whatever width remains
+                    const currentW = (c === cols - 1) ? (img.width - x) : chunkW;
+                    // If last row, take whatever height remains
+                    const currentH = (r === rows - 1) ? (img.height - y) : chunkH;
+
+                    canvas.width = currentW;
+                    canvas.height = currentH;
                     const ctx = canvas.getContext("2d");
 
-                    // Draw slice from the potentially modified full image canvas
+                    // Draw slice from the full image canvas
                     ctx.drawImage(
-                        img,
-                        c * chunkW, r * chunkH, chunkW, chunkH, // Source
-                        0, 0, chunkW, chunkH // Destination
+                        tempFullCanvas,
+                        x, y, currentW, currentH, // Source
+                        0, 0, currentW, currentH  // Destination
                     );
 
                     // Convert slice to blobUrl temporarilly to pass to processSticker
-                    const sliceUrl = canvas.toDataURL();
+                    const sliceUrl = canvas.toDataURL(); // Base64, so no revoke needed
 
                     // Process this slice (resize/margin/chromakey)
-                    // Note: bgMode is handled inside processSticker
-                    promises.push(processSticker(sliceUrl, bgMode));
+                    try {
+                        // Wait for each sticker to process so we don't overwhelm memory? 
+                        // Actually Promise.all is fine for reasonable counts (max 40).
+                        const p = processSticker(sliceUrl, bgMode);
+                        promises.push(p);
+                    } catch (e) {
+                        console.error("Slice error", e);
+                    }
                 }
             }
 
@@ -332,10 +322,16 @@ export const splitImage = (file, rows, cols, bgMode = 'none', removeWatermarkFla
                 resolve(results);
             } catch (e) {
                 reject(e);
+            } finally {
+                // Cleanup source URL
+                URL.revokeObjectURL(fileUrl);
             }
         };
-        img.onerror = reject;
-        img.src = URL.createObjectURL(file);
+        img.onerror = (e) => {
+            URL.revokeObjectURL(fileUrl);
+            reject(e);
+        };
+        img.src = fileUrl;
     });
 };
 

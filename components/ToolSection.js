@@ -26,17 +26,16 @@ export default function ToolSection() {
     const [selectedPreset, setSelectedPreset] = useState(8); // count
 
     const [bgMode, setBgMode] = useState('none');
-    const [shouldRemoveWatermark, setShouldRemoveWatermark] = useState(false);
     const [sourceFile, setSourceFile] = useState(null);
 
     // --- Logic copied from page.js ---
-    const processFile = async (file, r, c, mode, wm) => {
+    // --- Logic copied from page.js ---
+    const processFile = async (file, r, c, mode) => {
         const currentMode = mode !== undefined ? mode : bgMode;
-        const currentWm = wm !== undefined ? wm : shouldRemoveWatermark;
 
         setIsProcessing(true);
         try {
-            const processed = await splitImage(file, r, c, currentMode, currentWm);
+            const processed = await splitImage(file, r, c, currentMode);
             setStickers(processed);
         } catch (error) {
             console.error("Processing failed", error);
@@ -48,7 +47,7 @@ export default function ToolSection() {
 
     const handleFileSelect = async (file) => {
         setSourceFile(file);
-        await processFile(file, rows, cols, bgMode, shouldRemoveWatermark);
+        await processFile(file, rows, cols, bgMode);
     };
 
     // Preset Handler
@@ -61,20 +60,14 @@ export default function ToolSection() {
             setRows(preset.rows);
             setCols(preset.cols);
             // If file exists, re-process
-            if (sourceFile) await processFile(sourceFile, preset.rows, preset.cols, bgMode, shouldRemoveWatermark);
+            if (sourceFile) await processFile(sourceFile, preset.rows, preset.cols, bgMode);
         }
     };
 
     const handleBgModeChange = async (e) => {
         const newMode = e.target.value;
         setBgMode(newMode);
-        if (sourceFile) await processFile(sourceFile, rows, cols, newMode, shouldRemoveWatermark);
-    };
-
-    const handleWatermarkToggle = async () => {
-        const newVal = !shouldRemoveWatermark;
-        setShouldRemoveWatermark(newVal);
-        if (sourceFile) await processFile(sourceFile, rows, cols, bgMode, newVal);
+        if (sourceFile) await processFile(sourceFile, rows, cols, newMode);
     };
 
     const handleDownload = async () => {
@@ -150,18 +143,9 @@ export default function ToolSection() {
                                 </div>
                             </div>
 
-                            <div className={`${styles.controlGroup} ${styles.toggleGroup}`}>
-                                <label className={styles.label}>透かし除去</label>
-                                <button
-                                    className={`${styles.toggle} ${shouldRemoveWatermark ? styles.on : ''}`}
-                                    onClick={handleWatermarkToggle}
-                                >
-                                    <div className={styles.toggleHandle}></div>
-                                </button>
-                                <span className={styles.toggleDesc}>{shouldRemoveWatermark ? 'ON (右下を除去)' : 'OFF'}</span>
-                            </div>
                         </div>
                     </div>
+
 
                     {/* Area */}
                     <div className={styles.workspace}>
@@ -190,7 +174,13 @@ export default function ToolSection() {
                                 <StickerGrid stickers={stickers} onDownload={handleDownload} />
                             </div>
                         ) : (
-                            <DropZone onFileSelect={handleFileSelect} />
+                            <div className={styles.uploadContainer}>
+                                <DropZone onFileSelect={handleFileSelect} />
+                                <p className={styles.note}>
+                                    ※ 画像にウォーターマーク（透かし）が入っている場合は、事前に削除してからアップロードしてください。<br />
+                                    ※ 偶数ピクセルでリサイズされ、LINE用サイズに自動調整されます。
+                                </p>
+                            </div>
                         )}
                     </div>
 

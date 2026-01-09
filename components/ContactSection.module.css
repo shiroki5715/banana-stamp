@@ -1,0 +1,57 @@
+.section {
+    padding: 60px 20px;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.heading {
+    font-size: 1.8rem;
+    color: var(--color-black);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.desc {
+    color: var(--color-gray);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.formWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.iframe {
+    width: 100%;
+    max-width: 640px;
+    border: none;
+    /* モバイルでスクロール時などの挙動安定化 */
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .spBr {
+        display: block;
+    }
+
+    .formWrapper {
+        padding: 0;
+        background: transparent;
+    }
+}
