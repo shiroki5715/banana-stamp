@@ -12,8 +12,8 @@ export default function ContactSection() {
                 <div className={styles.formWrapper}>
                     <iframe
                         src="https://docs.google.com/forms/d/e/1FAIpQLSfXdNAQiT0cXYyRWI9xt83wGUZjVKch7pj-HSmtqJodqaSPmQ/viewform?embedded=true"
-                        width="640"
-                        height="689"
+                        width="100%"
+                        height="900"
                         frameBorder="0"
                         marginHeight="0"
                         marginWidth="0"

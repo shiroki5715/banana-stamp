@@ -37,8 +37,9 @@
     width: 100%;
     max-width: 640px;
     border: none;
-    /* モバイルでスクロール時などの挙動安定化 */
     display: block;
+    margin: 0 auto;
+    /* モバイルでスクロール時などの挙動安定化 */
 }
 
 @media (max-width: 600px) {
