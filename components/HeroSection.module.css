@@ -63,86 +63,43 @@
     color: var(--color-black);
 }
 
-.highlight {
-    background: linear-gradient(120deg, transparent 0%, transparent 40%, var(--color-banana) 40%, var(--color-banana) 90%, transparent 90%);
-    background-size: 200% 100%;
-    animation: highlightAnim 1.5s ease-out forwards;
-    padding: 0 0.2em;
-    color: var(--color-on-banana);
-    text-shadow: none;
-}
+/* ... */
 
-.subtitle {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-    line-height: 1.8;
-    max-width: 500px;
-}
-
-.techSpec {
-    font-weight: 700;
-    color: var(--color-text);
-}
-
-.ctaGroup {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.trust {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    font-weight: 500;
-}
-
-/* Visual Side */
-.visual {
+.heroText {
+    /* Just bold/black, no yellow tape */
+    color: var(--color-black);
+    display: inline-block;
     position: relative;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 1;
 }
 
-.cardContainer {
-    position: relative;
+/* Optional: Add a subtle underline instead if "too plain" */
+.heroText::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
     width: 100%;
-    max-width: 500px;
-    aspect-ratio: 16/10;
-}
-
-.blobYellow {
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    width: 250px;
-    height: 250px;
+    height: 12px;
     background: var(--color-banana);
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.4;
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
+    opacity: 0.6;
+    z-index: -1;
+    border-radius: 4px;
 }
 
-.blobGreen {
-    position: absolute;
-    bottom: -20%;
-    left: -10%;
-    width: 200px;
-    height: 200px;
-    background: var(--color-line);
-    border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.2;
-    z-index: 0;
-    animation: float 8s ease-in-out infinite reverse;
+/* But user said "unnecessary", so maybe just simple? 
+   "最初の黄色い帯が流れるのはおしゃれでいいけど、色が..." -> "最初の黄色い帯が流れるやついらないかな"
+   Maybe they just dislike the animation/flow. 
+   I'll keep a static subtle marker or just remove it. 
+   Let's go with a static simple underline for emphasis, 
+   or just removal. The user said "unnecessary" (いらない).
+   So I will remove the ::after and just use text color.
+*/
+.heroText {
+    color: var(--color-black);
 }
+
+/* ... */
 
 .glassCard {
     position: relative;
@@ -153,94 +110,85 @@
     flex-direction: column;
     z-index: 1;
     transition: transform 0.3s ease;
+    justify-content: center;
+    /* Center content vertically */
 }
 
-.glassCard:hover {
-    transform: translateY(-5px) rotateX(2deg);
-}
-
-.cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.windowControls {
-    display: flex;
-    gap: 6px;
-}
-
-.windowControls span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ddd;
-}
-
-.windowControls span:nth-child(1) {
-    background: #ff5f56;
-}
-
-.windowControls span:nth-child(2) {
-    background: #ffbd2e;
-}
-
-.windowControls span:nth-child(3) {
-    background: #27c93f;
-}
-
-.cardTitle {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
+/* New Simulation Layout */
 .simulation {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    /* Better spacing */
     gap: 1rem;
     flex: 1;
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
 }
 
-.before,
-.after {
+.simItem {
     flex: 1;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    position: relative;
-}
-
-.label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--color-text-muted);
-}
-
-.placeholderImg {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 8px;
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-    display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    position: relative;
+    height: 100%;
+}
+
+.fileIcon {
+    width: 80px;
+    height: 100px;
+    background: white;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.fileLabel {
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
     color: #999;
+    font-weight: 700;
+}
+
+.arrowContainer {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+}
+
+.arrowLine {
+    width: 30px;
+    height: 2px;
+    background: currentColor;
+}
+
+.arrowHead {
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-left: -4px;
 }
 
 .gridPreview {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    /* 3x2 */
     grid-template-rows: repeat(2, 1fr);
     gap: 4px;
-    flex: 1;
+    width: 100px;
+    /* Fixed small size */
+    height: 80px;
 }
 
 .stickerItem {
@@ -252,21 +200,22 @@
 
 .zipBadge {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    bottom: -10px;
+    right: 0px;
     background: var(--color-line);
     color: white;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-weight: 900;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: 99px;
     box-shadow: 0 4px 6px rgba(6, 199, 85, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transform: rotate(-5deg);
 }
 
-.arrow {
-    color: var(--color-text-muted);
-    animation: slideRight 1.5s infinite;
-}
+/* Animations ... */
 
 /* Animations */
 @keyframes float {

@@ -130,7 +130,6 @@ export default function ToolSection() {
                                         onClick={() => handlePresetSelect(p.count)}
                                     >
                                         {p.count}
-                                        {p.count === 8 && <span className={styles.recBadge}>推奨</span>}
                                     </button>
                                 ))}
                             </div>

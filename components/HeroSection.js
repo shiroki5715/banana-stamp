@@ -29,7 +29,7 @@ export default function HeroSection() {
 
                     <h1 className={styles.title}>
                         1枚の画像を、<br />
-                        <span className={styles.highlight}>一瞬でスタンプに。</span>
+                        <span className={styles.heroText}>一瞬でスタンプに。</span>
                     </h1>
 
                     <p className={styles.subtitle}>
@@ -67,31 +67,40 @@ export default function HeroSection() {
 
                         {/* Glass Card */}
                         <div className={`${styles.glassCard} glass-card`}>
-                            <div className={styles.cardHeader}>
-                                <div className={styles.windowControls}>
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div className={styles.cardTitle}>Preview</div>
+                            <div className={styles.windowControls}>
+                                <span></span><span></span><span></span>
                             </div>
 
                             <div className={styles.simulation}>
-                                <div className={styles.before}>
-                                    <div className={styles.label}>Before</div>
-                                    <div className={styles.placeholderImg}>Original Image</div>
+                                {/* Left: Original File */}
+                                <div className={styles.simItem}>
+                                    <div className={styles.fileIcon}>
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                            <circle cx="8.5" cy="8.5" r="1.5" />
+                                            <polyline points="21 15 16 10 5 21" />
+                                        </svg>
+                                        <span className={styles.fileLabel}>Original</span>
+                                    </div>
                                 </div>
 
-                                <div className={styles.arrow}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                {/* Action */}
+                                <div className={styles.arrowContainer}>
+                                    <div className={styles.arrowLine}></div>
+                                    <div className={styles.arrowHead}></div>
                                 </div>
 
-                                <div className={styles.after}>
-                                    <div className={styles.label}>After</div>
+                                {/* Right: Result Grid */}
+                                <div className={styles.simItem}>
                                     <div className={styles.gridPreview}>
-                                        {[...Array(8)].map((_, i) => (
+                                        {[...Array(6)].map((_, i) => (
                                             <div key={i} className={styles.stickerItem} style={{ animationDelay: `${i * 0.1}s` }}></div>
                                         ))}
                                     </div>
-                                    <div className={styles.zipBadge}>ZIP出力</div>
+                                    <div className={styles.zipBadge}>
+                                        <span>ZIP</span>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
