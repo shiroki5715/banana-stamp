@@ -93,7 +93,7 @@ export default function HeroSection() {
                                 {/* Right: Result Grid */}
                                 <div className={styles.simItem}>
                                     <div className={styles.gridPreview}>
-                                        {[...Array(6)].map((_, i) => (
+                                        {[...Array(8)].map((_, i) => (
                                             <div key={i} className={styles.stickerItem} style={{ animationDelay: `${i * 0.1}s` }}></div>
                                         ))}
                                     </div>
