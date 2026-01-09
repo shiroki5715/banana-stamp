@@ -54,21 +54,7 @@
   --font-eng: "Inter", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-base: #050505;
-    --color-text: #FFFFFF;
-    --color-text-muted: #A0A0A0;
-
-    --color-surface: #1e1e1e;
-    --color-surface-hover: #2a2a2a;
-    --color-border: rgba(255, 255, 255, 0.1);
-
-    --glass-bg: rgba(30, 30, 30, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  }
-}
+/* Dark mode disabled - using light mode only with yellow/green theme */
 
 html {
   scroll-behavior: smooth;
