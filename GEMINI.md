@@ -12,18 +12,23 @@
 ## Architecture & Structure
 
 *   **`app/`**: Next.js App Router pages and layouts.
-    *   `page.js`: Main application logic and UI orchestration.
+    *   `page.js`: Top page (Hero -> Workflow -> HowTo -> Tool -> FAQ).
+    *   `contact/page.js`: Contact form page.
     *   `globals.css`: Global styles (variables, reset).
 *   **`components/`**: Reusable UI components.
-    *   `DropZone.js`: Drag-and-drop file upload area.
+    *   `HeroSection.js`: Top MV area.
+    *   `WorkflowGuide.js`: [NEW] Visual step-by-step guide (SVG/CSS).
+    *   `HowToStep.js`: Text-based instructions.
+    *   `ToolSection.js`: Main sticker creation tool.
     *   `StickerGrid.js`: Grid view of processed stickers.
+    *   `FaqSection.js`: Q&A list.
+    *   `ContactSection.js`: Google Form embed.
 *   **`utils/`**: Core logic independent of UI.
     *   `imageProcessor.js`: The "brain" of the app. Handles:
         *   **Splitting:** Cuts large grid images into individual stickers.
-        *   **Resizing:** Fits images into W370xH320 (minus 10px margin) while maintaining aspect ratio.
+        *   **Resizing:** Fits images into W370xH320 (minus 10px margin).
         *   **Compliance:** Enforces even-numbered dimensions and 10px transparent margins.
-        *   **Chroma Key:** Simple background removal (Green, Blue, Magenta, White).
-        *   **Watermark Patch:** Heuristic removal of bottom-right watermarks.
+        *   **Chroma Key:** Simple background removal.
 *   **`public/`**: Static assets (SVGs, icons).
 
 ## Key Features

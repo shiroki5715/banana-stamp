@@ -103,33 +103,38 @@ export default function ToolSection() {
         <section id="tool" className={styles.section}>
             <div className="container">
 
-                <div className={styles.panel}>
-                    {/* Header */}
-                    <div className={styles.header}>
-                        <h2 className={styles.title}>スタンプ作成ツール</h2>
-                        <p className={styles.desc}>設定を選んでドロップするだけ。</p>
-                    </div>
+                {/* Section Header */}
+                <div className={styles.sectionHeader}>
+                    <h2 className={styles.title}>スタンプ作成ツール</h2>
+                    <p className={styles.desc}>設定を選んで、画像をドロップするだけ。</p>
+                </div>
 
-                    {/* Controls */}
-                    <div className={styles.controls}>
-                        {/* 1. Count Selector (Segmented) */}
-                        <div className={styles.controlGroup}>
-                            <label className={styles.label}>スタンプ個数</label>
-                            <div className={styles.segments}>
-                                {PRESETS.map(p => (
-                                    <button
-                                        key={p.count}
-                                        className={`${styles.segmentBtn} ${selectedPreset === p.count ? styles.active : ''}`}
-                                        onClick={() => handlePresetSelect(p.count)}
-                                    >
-                                        {p.count}
-                                    </button>
-                                ))}
-                            </div>
+                <div className={styles.grid}>
+                    {/* Left Column: Settings */}
+                    <div className={styles.card}>
+                        <div className={styles.cardHeader}>
+                            <div className={styles.stepBadge}>1</div>
+                            <h3>設定</h3>
                         </div>
 
-                        {/* 2. Options (Bg & Watermark) */}
-                        <div className={styles.optionsRow}>
+                        <div className={styles.cardBody}>
+                            {/* 1. Count Selector */}
+                            <div className={styles.controlGroup}>
+                                <label className={styles.label}>スタンプ個数</label>
+                                <div className={styles.segments}>
+                                    {PRESETS.map(p => (
+                                        <button
+                                            key={p.count}
+                                            className={`${styles.segmentBtn} ${selectedPreset === p.count ? styles.active : ''}`}
+                                            onClick={() => handlePresetSelect(p.count)}
+                                        >
+                                            {p.count}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* 2. Options */}
                             <div className={styles.controlGroup}>
                                 <label className={styles.label}>背景除去 (クロマキー)</label>
                                 <div className={styles.selectWrapper}>
@@ -141,50 +146,61 @@ export default function ToolSection() {
                                         <option value="magenta">マゼンタ除外</option>
                                     </select>
                                 </div>
+                                <p className={styles.helpText}>※特定の色を透明にします</p>
                             </div>
-
                         </div>
                     </div>
 
+                    {/* Right Column: Action */}
+                    <div className={styles.card}>
+                        <div className={styles.cardHeader}>
+                            <div className={styles.stepBadge}>2</div>
+                            <h3>{stickers.length > 0 ? "ダウンロード" : "アップロード"}</h3>
+                        </div>
 
-                    {/* Area */}
-                    <div className={styles.workspace}>
-                        {/* Loading Overlay */}
-                        {isProcessing && (
-                            <div className={styles.loader}>
-                                <div className={styles.spinner}></div>
-                                <p>Processing...</p>
-                            </div>
-                        )}
+                        <div className={`${styles.cardBody} ${styles.actionBody}`}>
+                            {/* Loading Overlay */}
+                            {isProcessing && (
+                                <div className={styles.loader}>
+                                    <div className={styles.spinner}></div>
+                                    <p>Processing...</p>
+                                </div>
+                            )}
 
-                        {stickers.length > 0 ? (
-                            <div className={styles.resultArea}>
-                                <div className={styles.resultHeader}>
-                                    <div className={styles.resultInfo}>
-                                        <span className={styles.successIcon}>✓</span>
-                                        生成完了: {stickers.length}個
+                            {stickers.length > 0 ? (
+                                <div className={styles.resultArea}>
+                                    <div className={styles.resultHeader}>
+                                        <div className={styles.resultInfo}>
+                                            <span className={styles.successIcon}>✓</span>
+                                            {stickers.length}個 生成完了
+                                        </div>
                                     </div>
+
+                                    <div className={styles.previewScroll}>
+                                        <StickerGrid stickers={stickers} onDownload={handleDownload} />
+                                    </div>
+
                                     <div className={styles.resultActions}>
-                                        <button onClick={reset} className={styles.btnSub}>やり直す</button>
                                         <button onClick={handleDownload} className="btn-primary">
-                                            ZIPで保存する
+                                            ZIPで保存
+                                        </button>
+                                        <button onClick={reset} className={styles.btnSub}>
+                                            やり直す
                                         </button>
                                     </div>
                                 </div>
-                                <StickerGrid stickers={stickers} onDownload={handleDownload} />
-                            </div>
-                        ) : (
-                            <div className={styles.uploadContainer}>
-                                <DropZone onFileSelect={handleFileSelect} />
-                                <p className={styles.note}>
-                                    ※ 画像にウォーターマーク（透かし）が入っている場合は、事前に削除してからアップロードしてください。<br />
-                                    ※ 偶数ピクセルでリサイズされ、LINE用サイズに自動調整されます。
-                                </p>
-                            </div>
-                        )}
+                            ) : (
+                                <div className={styles.uploadContainer}>
+                                    <DropZone onFileSelect={handleFileSelect} />
+                                    <div className={styles.notes}>
+                                        <p>※ 偶数ピクセルでリサイズされ、LINE用サイズに自動調整されます。</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
-
                 </div>
+
             </div>
         </section>
     );

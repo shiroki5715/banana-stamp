@@ -19,9 +19,10 @@ Create a high-quality "GUI Web App" named **Nanobanana Pro** that automates the 
     -   **Resizing**: Each image is resized to fit within W370×H320px.
     -   **Margin**: A 10px transparent margin is strictly enforced.
     -   **Rules**: Dimensions must be even numbers. Resolution 72dpi+. Color mode RGB.
+    -   **Flexibility**: Supports splitting 4x2 grids (8 stamps) or flexible counts (8, 16, 24, 32, 40).
 3.  **Main/Tab Generation**: automatically picks one image (or user selects) to generate `main.png` (W240×H240) and `tab.png` (W96×H74) with correct resizing.
 4.  **Preview**: "LINE System Simulator" view to see how stickers look on a chat background.
-5.  **Export**: Download a ZIP file containing `01.png`...`40.png`, `main.png`, `tab.png`.
+5.  **Export**: Download a ZIP file containing `01.png`...`08.png`, `main.png`, `tab.png`.
 
 ## Technical Architecture
 -   **Framework**: Next.js (App Router).

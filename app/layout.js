@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import AdSense from "../components/AdSense";
 import StickyHeader from "../components/StickyHeader";
 import { Noto_Sans_JP, Zen_Kaku_Gothic_New, Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -22,13 +23,31 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://banana-stamp.pages.dev"),
   title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
   description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
+  verification: {
+    google: "AkGavGI1vCMF_Kz2VjVbSotsI30tYZhtJPMji7KRhIo",
+  },
+  openGraph: {
+    title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
+    description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
+    url: "https://banana-stamp.pages.dev",
+    siteName: "バナナスタンプ",
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
+    description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。",
+  },
 };
 
 export default function RootLayout({ children }) {
   // TODO: Replace with actual AdSense Publisher ID
   const ADSENSE_PID = "";
+  const GA_ID = "G-H7TB0W3N99";
 
   return (
     <html lang="ja">
@@ -37,6 +56,7 @@ export default function RootLayout({ children }) {
         <AdSense pId={ADSENSE_PID} />
         {children}
         <Footer />
+        <GoogleAnalytics gaId={GA_ID} />
       </body>
     </html>
   );

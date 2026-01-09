@@ -1,139 +1,283 @@
 .section {
-    padding: 4rem 0;
+    padding: 6rem 0;
+    /* Increased padding */
     background: linear-gradient(to bottom, transparent, var(--color-base) 20%);
 }
 
-.panel {
-    background: var(--color-surface);
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-border);
-    overflow: hidden;
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
-.header {
-    padding: 2rem 2.5rem;
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.desc {
+    color: var(--text-muted);
+}
+
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr 1.5fr;
+        /* Settings < Action area */
+        align-items: start;
+    }
+}
+
+/* Card Styles */
+.card {
+    background: var(--color-surface);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cardHeader {
+    padding: 1.5rem 2rem;
+    background: var(--color-surface-hover);
     border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cardHeader h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.stepBadge {
+    width: 32px;
+    height: 32px;
+    background: var(--color-black);
+    color: var(--color-banana);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-family: var(--font-eng);
+}
+
+.cardBody {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.actionBody {
+    min-height: 400px;
+    position: relative;
+    /* For loader */
+}
+
+/* Controls */
+.controlGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Segmented Buttons (Affordance Improved) */
+.segments {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.segmentBtn {
+    flex: 1;
+    background: var(--color-surface);
+    border: 1px solid transparent;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    min-width: 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+}
+
+.segmentBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: var(--color-text);
+}
+
+.segmentBtn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.segmentBtn.active {
+    background: var(--color-banana);
+    color: var(--color-black);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Inset shadow for "pressed" state */
+    transform: translateY(1px);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Select Box (Affordance Improved) */
+.selectWrapper {
+    position: relative;
+}
+
+.select {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--color-text);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    appearance: none;
+    /* Custom arrow needed if we want full control, but basic is fine */
+}
+
+.select:hover {
+    border-color: #aaa;
+}
+
+.helpText {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: -0.4rem;
+}
+
+
+/* Results & Upload Area */
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+}
+
+.notes {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--color-surface-hover);
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+/* Result View */
+.resultArea {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1.5rem;
+}
+
+.resultHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.controls {
-    padding: 2rem 2.5rem;
-    background: var(--color-surface-hover);
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-/* ... */
-
-.segmentBtn {
-    position: relative;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
+.resultInfo {
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-text-muted);
-    transition: all 0.2s;
-    min-width: 60px;
-}
-
-.segmentBtn:hover {
-    background: var(--color-banana-pale);
-    border-color: var(--color-banana);
-}
-
-.segmentBtn.active {
-    background: var(--color-banana);
-    border-color: var(--color-banana-dark);
-    color: var(--color-black);
-    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
-}
-
-/* ... */
-
-.select {
-    padding: 0.6rem 2rem 0.6rem 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    font-family: inherit;
-    font-weight: 700;
-    color: var(--color-text);
-    min-width: 200px;
-}
-
-.toggleGroup {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.toggle {
-    width: 50px;
-    height: 28px;
-    background: #ddd;
+.successIcon {
+    color: var(--color-line);
+    font-size: 1.5rem;
+}
+
+.previewScroll {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    /* Limit height */
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.resultActions {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+@media (min-width: 600px) {
+    .resultActions {
+        flex-direction: row;
+    }
+}
+
+.btnSub {
+    background: transparent;
+    border: 2px solid var(--color-border);
+    padding: 1rem 2rem;
     border-radius: 99px;
-    position: relative;
-    transition: all 0.2s;
-}
-
-.toggle.on {
-    background: var(--color-banana);
-}
-
-.toggleHandle {
-    width: 24px;
-    height: 24px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.toggle.on .toggleHandle {
-    transform: translateX(22px);
-}
-
-.toggleDesc {
-    font-size: 0.8rem;
+    font-weight: 700;
     color: var(--color-text-muted);
-    margin-top: 0.4rem;
+    transition: all 0.2s;
 }
 
-.workspace {
-    padding: 2.5rem;
-    background: var(--color-base);
-    min-height: 400px;
-    position: relative;
+.btnSub:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+    background: var(--color-surface-hover);
 }
 
+/* Loader */
 .loader {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
+    border-radius: 20px;
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #eee;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #eee;
     border-top-color: var(--color-banana);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -147,52 +291,5 @@
 
     to {
         transform: rotate(360deg);
-    }
-}
-
-.resultHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.resultInfo {
-    font-size: 1.2rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.successIcon {
-    color: var(--color-line);
-}
-
-.resultActions {
-    display: flex;
-    gap: 1rem;
-}
-
-.btnSub {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 0.8rem 1.5rem;
-    border-radius: 99px;
-    font-weight: 700;
-    transition: all 0.2s;
-}
-
-.btnSub:hover {
-    background: #f5f5f5;
-}
-
-@media (min-width: 768px) {
-    .controls {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
     }
 }

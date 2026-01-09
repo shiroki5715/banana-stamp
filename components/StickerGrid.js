@@ -18,7 +18,9 @@ export default function StickerGrid({ stickers, onDownload }) {
             <div className={styles.grid}>
                 {stickers.map((sticker, index) => (
                     <div key={index} className={styles.card}>
-                        <div className={styles.imageWrapper}>
+                        <div
+                            className={styles.imageWrapper}
+                        >
                             <img
                                 src={sticker.url}
                                 alt={`Sticker ${index + 1}`}
