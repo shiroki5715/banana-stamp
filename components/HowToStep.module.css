@@ -1,0 +1,84 @@
+.section {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.label {
+    display: block;
+    font-family: var(--font-eng);
+    font-weight: 900;
+    color: var(--color-banana);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.heading {
+    font-size: 2.5rem;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.card {
+    padding: 2.5rem;
+    background: var(--color-white);
+    /* Override glass-card basic for specific look if needed, but inheriting is fine */
+    background: rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-banana);
+}
+
+.iconBox {
+    width: 60px;
+    height: 60px;
+    background: var(--color-dark-gray);
+    color: var(--color-banana);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 2rem;
+}
+
+.stepNum {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-eng);
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.03);
+    line-height: 1;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cardDesc {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

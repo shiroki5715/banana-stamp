@@ -1,84 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap');
+
 :root {
   /* Brand Colors */
-  --primary: #FFD600; /* Banana Yellow */
-  --primary-glow: rgba(255, 214, 0, 0.4);
-  --accent: #2c2c2c;
-  
-  /* Backgrounds */
-  --bg-color: #f8f9fa;
-  --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-  
-  /* Text */
-  --text-main: #1a1a1a;
-  --text-muted: #666;
-  
+  --color-banana: #FFD700;
+  /* Premium Banana Yellow */
+  --color-banana-dark: #E6C200;
+  /* Hovet state */
+  --color-banana-pale: #FFF9C4;
+  /* Subtle highlights */
+
+  --color-black: #111111;
+  /* Jet Black */
+  --color-dark-gray: #1A1A1A;
+  /* Card Backgrounds */
+  --color-text: #111111;
+  /* Main Text */
+  --color-text-muted: #666666;
+  /* Sub Text */
+
+  --color-base: #FAFAFA;
+  /* Page Background */
+  --color-white: #FFFFFF;
+
+  --color-line: #06C755;
+  /* LINE Brand Color for badges/accents */
+
+  /* Gradients & Noise */
+  --bg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+
   /* Layout */
   --max-width: 1200px;
-  --header-height: 70px;
-  --radius: 16px;
+  --header-height: 80px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 8px;
+
+  /* Typography */
+  --font-heading: "Zen Kaku Gothic New", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --font-eng: "Inter", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #0f0f0f;
-    --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-    --text-main: #ffffff;
-    --text-muted: #a0a0a0;
-    --glass-bg: rgba(20, 20, 20, 0.7);
+    --color-base: #050505;
+    --color-text: #FFFFFF;
+    --color-text-muted: #A0A0A0;
+    --glass-bg: rgba(20, 20, 20, 0.6);
     --glass-border: rgba(255, 255, 255, 0.1);
   }
 }
 
-html, body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Helvetica Neue', Arial, sans-serif; /* Fallback */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--text-main);
-  background: var(--bg-color);
-  background-image: var(--bg-gradient);
+  color: var(--color-text);
+  background-color: var(--color-base);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(6, 199, 85, 0.05) 0%, transparent 40%),
+    var(--bg-noise);
+  background-attachment: fixed;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  padding-top: var(--header-height);
+  /* For Sticky Header */
 }
 
-/* Utilities */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+/* Typography Utilities */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+  font-weight: 900;
 }
 
+.text-gradient {
+  background: linear-gradient(135deg, #111 0%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Utility Classes */
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
-/* Reset */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+}
+
+.btn-primary {
+  background: var(--color-banana);
+  color: var(--color-black);
+  font-weight: 900;
+  padding: 1rem 2.5rem;
+  border-radius: 999px;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(255, 215, 0, 0.4);
+  background: var(--color-banana-dark);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 700;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-text);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Base Reset */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 button {
   cursor: pointer;
   border: none;
   font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
