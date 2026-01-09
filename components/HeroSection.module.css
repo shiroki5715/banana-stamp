@@ -63,17 +63,15 @@
     color: var(--color-black);
 }
 
-/* ... */
-
+/* Hero Text (subtitle emphasis) */
 .heroText {
-    /* Just bold/black, no yellow tape */
     color: var(--color-black);
     display: inline-block;
     position: relative;
     z-index: 1;
 }
 
-/* Optional: Add a subtle underline instead if "too plain" */
+/* Subtle underline for emphasis (static, no animation) */
 .heroText::after {
     content: '';
     position: absolute;
@@ -86,20 +84,6 @@
     z-index: -1;
     border-radius: 4px;
 }
-
-/* But user said "unnecessary", so maybe just simple? 
-   "最初の黄色い帯が流れるのはおしゃれでいいけど、色が..." -> "最初の黄色い帯が流れるやついらないかな"
-   Maybe they just dislike the animation/flow. 
-   I'll keep a static subtle marker or just remove it. 
-   Let's go with a static simple underline for emphasis, 
-   or just removal. The user said "unnecessary" (いらない).
-   So I will remove the ::after and just use text color.
-*/
-.heroText {
-    color: var(--color-black);
-}
-
-/* ... */
 
 .glassCard {
     position: relative;
