@@ -4,56 +4,36 @@
 }
 
 .panel {
-    background: var(--color-white);
+    background: var(--color-surface);
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
     overflow: hidden;
 }
 
 .header {
     padding: 2rem 2.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.title {
-    font-size: 1.5rem;
-}
-
-.desc {
-    color: var(--color-text-muted);
-}
-
 .controls {
     padding: 2rem 2.5rem;
-    background: #fcfcfc;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: var(--color-surface-hover);
+    border-bottom: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.label {
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    display: block;
-    color: var(--color-text-muted);
-}
-
-.segments {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
+/* ... */
 
 .segmentBtn {
     position: relative;
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 700;
@@ -62,35 +42,13 @@
     min-width: 60px;
 }
 
-.segmentBtn.active {
-    background: var(--color-black);
-    color: var(--color-banana);
-    border-color: var(--color-black);
-}
-
-.recBadge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: var(--color-line);
-    color: white;
-    font-size: 0.6rem;
-    padding: 2px 6px;
-    border-radius: 99px;
-    white-space: nowrap;
-}
-
-.optionsRow {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
+/* ... */
 
 .select {
     padding: 0.6rem 2rem 0.6rem 1rem;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: white;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
     font-family: inherit;
     font-weight: 700;
     color: var(--color-text);

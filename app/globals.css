@@ -8,20 +8,28 @@
   /* Hovet state */
   --color-banana-pale: #FFF9C4;
   /* Subtle highlights */
+  --color-on-banana: #111111;
+  /* Text on Yellow */
 
   --color-black: #111111;
   /* Jet Black */
   --color-dark-gray: #1A1A1A;
-  /* Card Backgrounds */
+
+  /* Text */
   --color-text: #111111;
   /* Main Text */
   --color-text-muted: #666666;
   /* Sub Text */
 
+  /* Surfaces */
   --color-base: #FAFAFA;
   /* Page Background */
-  --color-white: #FFFFFF;
+  --color-surface: #FFFFFF;
+  /* Card/Panel Background */
+  --color-surface-hover: #F0F0F0;
+  --color-border: rgba(0, 0, 0, 0.1);
 
+  --color-white: #FFFFFF;
   --color-line: #06C755;
   /* LINE Brand Color for badges/accents */
 
@@ -51,8 +59,14 @@
     --color-base: #050505;
     --color-text: #FFFFFF;
     --color-text-muted: #A0A0A0;
-    --glass-bg: rgba(20, 20, 20, 0.6);
+
+    --color-surface: #1e1e1e;
+    --color-surface-hover: #2a2a2a;
+    --color-border: rgba(255, 255, 255, 0.1);
+
+    --glass-bg: rgba(30, 30, 30, 0.6);
     --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 }
 

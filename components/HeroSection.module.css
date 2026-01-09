@@ -68,6 +68,8 @@
     background-size: 200% 100%;
     animation: highlightAnim 1.5s ease-out forwards;
     padding: 0 0.2em;
+    color: var(--color-on-banana);
+    text-shadow: none;
 }
 
 .subtitle {

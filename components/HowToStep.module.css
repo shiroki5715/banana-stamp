@@ -31,13 +31,12 @@
 
 .card {
     padding: 2.5rem;
-    background: var(--color-white);
-    /* Override glass-card basic for specific look if needed, but inheriting is fine */
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--color-surface);
+    /* Override glass-card basic for specific look if needed */
     transition: transform 0.3s ease;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
 }
 
 .card:hover {
