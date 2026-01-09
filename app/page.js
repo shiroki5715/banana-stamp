@@ -131,6 +131,12 @@ export default function Home() {
           <h2>LINEスタンプ作成を<br /> <span className={styles.highlight}>もっと自由に、もっと素早く</span></h2>
           <p>画像をドロップするだけ。ガイドラインに合わせて自動調整。</p>
 
+          <div style={{ marginTop: '1rem' }}>
+            <a href="/howto" style={{ color: '#4a9eff', textDecoration: 'underline', fontWeight: 'bold' }}>
+              使い方はこちら
+            </a>
+          </div>
+
           {/* Controls - Always show */}
           <div className={styles.controlsPanel}>
             <div className={styles.controlGroup}>
@@ -215,9 +221,6 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <p>© 2025 Nanobanana Pro. Optimized for LINE Creators Market.</p>
-      </footer>
     </div>
   );
 }

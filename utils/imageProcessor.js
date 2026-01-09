@@ -35,6 +35,21 @@ const resizeToFit = (img, targetW, targetH) => {
     return { w, h };
 };
 
+// Helper for smooth transitions (smoothstep)
+const smoothstep = (min, max, value) => {
+    const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+    return x * x * (3 - 2 * x);
+};
+
+// Helper to calculate Euclidean distance between colors
+const colorDistance = (r1, g1, b1, r2, g2, b2) => {
+    return Math.sqrt(
+        Math.pow(r1 - r2, 2) +
+        Math.pow(g1 - g2, 2) +
+        Math.pow(b1 - b2, 2)
+    );
+};
+
 // Helper to remove background based on Chroma Key
 const removeBackground = (ctx, width, height, mode) => {
     if (!mode || mode === 'none') return;
@@ -42,87 +57,107 @@ const removeBackground = (ctx, width, height, mode) => {
     const imageData = ctx.getImageData(0, 0, width, height);
     const data = imageData.data;
 
-    // Target Colors (RGB)
-    let targetR = 255, targetG = 255, targetB = 255; // Default White
-    let threshold = 60; // Euclidian distance threshold
-
-    if (mode === 'green') {
-        targetR = 0; targetG = 255; targetB = 0;
-        threshold = 100; // Green screen needs decent tolerance
-    } else if (mode === 'blue') {
-        targetR = 0; targetG = 0; targetB = 255;
-        threshold = 100;
-    } else if (mode === 'magenta') {
-        targetR = 255; targetG = 0; targetB = 255;
-        threshold = 100;
-    } else if (mode === 'white') {
-        // For white, we keep the previous simple high-threshold logic or use distance
-        // High-threshold (RGB > 240) is often safer for "paper scan" than pure white distance
-        // Let's use a specialized check for white to match previous behavior which worked well for scans
-
-        const whiteThresh = 240;
-        for (let i = 0; i < data.length; i += 4) {
-            if (data[i] > whiteThresh && data[i + 1] > whiteThresh && data[i + 2] > whiteThresh) {
-                data[i + 3] = 0;
-            }
-        }
-        ctx.putImageData(imageData, 0, 0);
-        return;
-    }
-
-    // Chroma Key Logic for Colors
     for (let i = 0; i < data.length; i += 4) {
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
+        const a = data[i + 3];
 
-        let isMatch = false;
+        // Skip already transparent pixels
+        if (a === 0) continue;
 
-        if (mode === 'green') {
-            // Green Screen Logic: G is dominant
-            // G must be significantly higher than R and B
-            // Also enforce a minimum brightness for G to avoid black matching
-            if (g > 70 && g > r + 40 && g > b + 40) {
-                isMatch = true;
-            }
-        } else if (mode === 'blue') {
-            // Blue Screen Logic
-            if (b > 70 && b > r + 40 && b > g + 40) {
-                isMatch = true;
-            }
+        let alpha = a;
+
+        if (mode === 'white') {
+            // White Mode: Distance based + Soft Edge
+            // Target: (255, 255, 255)
+            const dist = colorDistance(r, g, b, 255, 255, 255);
+
+            // Soft threshold:
+            // < 30: Transparent (Very close to white)
+            // 30 - 90: Transition
+            // > 90: Opaque
+            // The "smoothstep" returns 0..1 (0=min, 1=max). 
+            // Since we want Distance 0 -> Alpha 0, Distance Max -> Alpha 1:
+            const opacityFactor = smoothstep(30, 90, dist);
+            alpha = Math.min(alpha, opacityFactor * 255);
+
         } else if (mode === 'magenta') {
-            // Magenta: R and B are high, G is low
-            if (r > 150 && b > 150 && g < 100 && Math.abs(r - b) < 60) {
-                isMatch = true;
+            // Magenta Mode: (255, 0, 255)
+            // 1. Alpha Calculation
+            // Using distance for basic shape
+            const dist = colorDistance(r, g, b, 255, 0, 255);
+
+            // Magenta is usually a digital pure color, so thresholds can be tighter
+            // < 60: Transparent
+            // 60 - 100: Transition
+            const opacityFactor = smoothstep(60, 100, dist);
+            alpha = Math.min(alpha, opacityFactor * 255);
+
+            // 2. Despill / Fringing Correction
+            // If pixel is visible, neutralized purple fringing
+            // Magenta has high R and B, low G.
+            // If R and B > G, we clamping them towards G to remove the purple cast on edges.
+            if (alpha > 0) {
+                // Simple despill: If R and B are significantly higher than G, suppress them.
+                // Limit R and B to not exceed (G + Threshold).
+                const limit = g + 20;
+                if (r > limit && b > limit) {
+                    // Only desaturate if it really looks magenta-ish
+                    data[i] = limit;     // R
+                    data[i + 2] = limit; // B
+                }
             }
-        }
 
-        // Use Euclidian as fallback or for custom colors if we added them later
-        // But for now, the dominant channel logic is much better for screens
-        if (isMatch) {
-            data[i + 3] = 0; // Transparent
-        } else {
-            // DESPILL / SPILL SUPPRESSION
-            // If the pixel is not removed, check if it has a color cast from the background
-            // and neutralize it. This fixes the "Green Fringe" issue.
+        } else if (mode === 'green') {
+            // Green Screen Logic: G is dominant
+            // "Green-ness" metric: G - max(R, B)
+            const maxRB = Math.max(r, b);
+            const greenness = g - maxRB;
 
-            if (mode === 'green') {
-                // Check if Green is still the dominant channel, even if not enough to trigger removal
-                // Simple despill: Limit Green to the average of Red and Blue
+            // Thresholds for Greenness:
+            // > 40: It is green -> Transparent
+            // 10 - 40: Transition
+            // < 10: Not green -> Opaque
+            // Note: We want high greenness -> low alpha.
+            // smoothstep(10, 40, greenness) -> 0 (low green) to 1 (high green)
+            // So alpha should be (1 - value)
+
+            // Also need to check absolute Green value to avoid removing dark muddy noise
+            if (g > 50) {
+                const isGreen = smoothstep(10, 50, greenness);
+                alpha = Math.min(alpha, (1 - isGreen) * 255);
+            }
+
+            // Despill (Green Fringing Correction)
+            // If still visible, clamp Green to average of R and B
+            if (alpha > 0) {
                 const limit = (r + b) / 2;
                 if (g > limit) {
                     data[i + 1] = limit; // Clamp Green
-                    // Optional: Restore luminance if needed, but usually clamping is enough for edges
                 }
-            } else if (mode === 'blue') {
-                // Check if Blue is dominant
+            }
+
+        } else if (mode === 'blue') {
+            // Blue Screen Logic: B is dominant
+            const maxRG = Math.max(r, g);
+            const blueness = b - maxRG;
+
+            if (b > 50) {
+                const isBlue = smoothstep(10, 50, blueness);
+                alpha = Math.min(alpha, (1 - isBlue) * 255);
+            }
+
+            // Despill
+            if (alpha > 0) {
                 const limit = (r + g) / 2;
                 if (b > limit) {
                     data[i + 2] = limit; // Clamp Blue
                 }
             }
-            // Magenta despill is trickier, skipping for now as it's less common
         }
+
+        data[i + 3] = alpha;
     }
     ctx.putImageData(imageData, 0, 0);
 };
