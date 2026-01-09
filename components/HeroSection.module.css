@@ -60,12 +60,12 @@
 .title {
     font-size: 3rem;
     line-height: 1.1;
-    color: var(--color-black);
+    color: var(--color-text);
 }
 
 /* Hero Text (subtitle emphasis) */
 .heroText {
-    color: var(--color-black);
+    color: var(--color-text);
     display: inline-block;
     position: relative;
     z-index: 1;

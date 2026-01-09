@@ -32,7 +32,7 @@
     font-weight: 900;
     font-size: 1.25rem;
     letter-spacing: 0.05em;
-    color: var(--color-black);
+    color: var(--color-text);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -63,21 +63,21 @@
 }
 
 .cta {
-    background: var(--color-black);
-    color: var(--color-banana);
+    background: var(--color-banana);
+    color: var(--color-on-banana);
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 0.9rem;
     padding: 0.6rem 1.2rem;
     border-radius: 999px;
     transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
 .cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    background: #000;
+    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.4);
+    background: var(--color-banana-dark);
 }
 
 @media (min-width: 768px) {
