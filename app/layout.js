@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import AdSense from "../components/AdSense";
 import StickyHeader from "../components/StickyHeader";
 import { Noto_Sans_JP, Zen_Kaku_Gothic_New, Inter } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -56,7 +56,19 @@ export default function RootLayout({ children }) {
         <AdSense pId={ADSENSE_PID} />
         {children}
         <Footer />
-        <GoogleAnalytics gaId={GA_ID} />
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );
