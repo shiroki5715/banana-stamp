@@ -34,8 +34,8 @@ export const metadata = {
     locale: "ja_JP",
     type: "website",
   },
-  other: {
-    "google-site-verification": "AkGavGI1vCMF_Kz2VjVbSotsI30tYZhtJPMji7KRhIo",
+  verification: {
+    google: "AkGavGI1vCMF_Kz2VjVbSotsI30tYZhtJPMji7KRhIo",
   },
   twitter: {
     card: "summary_large_image",
