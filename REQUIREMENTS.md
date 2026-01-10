@@ -11,6 +11,10 @@ Create a high-quality "GUI Web App" named **Nanobanana Pro** that automates the 
     - [ ] Animation Stickers (APNG) - Future
     - [ ] Theme (Kisekae) - Future
 - **Compliance**: Adhere strictly to LINE Creators Market Guidelines.
+- **Release Preparation**:
+    - [x] Google Analytics (Traffic tracking).
+    - [x] Google Search Console (Site verification).
+    - [x] SEO (Sitemap, Robots.txt, Metadata).
 
 ## Proposed Workflow
 1.  **Upload Stage**: User uploads a single large "Sheet" (e.g., a grid of hand-drawn sketches) or selects multiple distinct images.

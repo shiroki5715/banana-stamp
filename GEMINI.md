@@ -14,6 +14,9 @@
 *   **`app/`**: Next.js App Router pages and layouts.
     *   `page.js`: Top page (Hero -> Workflow -> HowTo -> Tool -> FAQ).
     *   `contact/page.js`: Contact form page.
+    *   `sitemap.js`: Generates `sitemap.xml`.
+    *   `robots.js`: Generates `robots.txt`.
+    *   `manifest.js`: Generates `manifest.webmanifest`.
     *   `globals.css`: Global styles (variables, reset).
 *   **`components/`**: Reusable UI components.
     *   `HeroSection.js`: Top MV area.
@@ -41,6 +44,10 @@
     *   Format: PNG.
 3.  **Auto-Generation**: Automatically generates required `main.png` (W240xH240) and `tab.png` (W96xH74) from the first sticker.
 4.  **ZIP Export**: Bundles all files (`01.png`, `02.png`..., `main.png`, `tab.png`) into a single ZIP for easy upload.
+5.  **SEO & Analytics**: 
+    *   **Google Analytics**: Integrated via `next/script` (gtag.js).
+    *   **Search Console**: Verified via HTML file (`public/google....html`) and Meta tag.
+    *   **Metadata**: Dynamic Sitemap, Robots.txt, and strict OGP/Twitter Card tags.
 
 ## Building and Running
 

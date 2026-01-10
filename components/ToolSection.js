@@ -74,9 +74,8 @@ export default function ToolSection() {
         const zip = new JSZip();
         stickers.forEach((sticker, i) => {
             const num = (i + 1).toString().padStart(2, '0');
-            // Remove data:image/png;base64, prefix
-            const base64Data = sticker.url.split(',')[1];
-            zip.file(`${num}.png`, base64Data, { base64: true });
+            // Use the blob directly (sticker.url is a Blob URL, not Base64)
+            zip.file(`${num}.png`, sticker.blob);
         });
 
         if (stickers.length > 0) {
