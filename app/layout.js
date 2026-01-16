@@ -46,7 +46,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   // TODO: Replace with actual AdSense Publisher ID
-  const ADSENSE_PID = "";
+  const ADSENSE_PID = "ca-pub-4792239930558838";
   const GA_ID = "G-H7TB0W3N99";
 
   return (

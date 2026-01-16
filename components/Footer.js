@@ -6,7 +6,8 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={`container ${styles.inner}`}>
                 <div className={styles.links}>
-                    <Link href="/howto" className={styles.link}>使い方ガイド</Link>
+                    <Link href="/guide/requirements" className={styles.link}>画像規定ガイド</Link>
+                    <Link href="/guide/howto" className={styles.link}>詳しい使い方</Link>
                     <Link href="/privacy-policy" className={styles.link}>プライバシーポリシー</Link>
                     <Link href="/terms" className={styles.link}>利用規約</Link>
                     <Link href="/contact" className={styles.link}>お問い合わせ</Link>
