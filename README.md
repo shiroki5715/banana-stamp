@@ -22,5 +22,9 @@
 
 3. Open [http://localhost:3000](http://localhost:3000) with your browser.
 
+## Deployment
+
+The application is deployed at: **[https://banana-stamp.com](https://banana-stamp.com)**
+
 ## Documentation
 For detailed requirements and technical structure, see [REQUIREMENTS.md](./REQUIREMENTS.md).

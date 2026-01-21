@@ -59,7 +59,7 @@
 ### Deployment
 *   **Target**: Cloudflare Pages
 *   **Project Name**: `banana-stamp`
-*   **URL**: `https://banana-stamp.pages.dev/`
+*   **URL**: `https://banana-stamp.com/`
 *   **Command**: `npx wrangler pages deploy out --project-name banana-stamp`
 
 ### Commands

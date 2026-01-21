@@ -1,6 +1,5 @@
 import "./globals.css";
 import Footer from "../components/Footer";
-import AdSense from "../components/AdSense";
 import StickyHeader from "../components/StickyHeader";
 import { Noto_Sans_JP, Zen_Kaku_Gothic_New, Inter } from "next/font/google";
 import Script from "next/script";
@@ -51,9 +50,15 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="ja">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4792239930558838"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className={`${notoSansJP.variable} ${zenKaku.variable} ${inter.variable}`}>
         <StickyHeader />
-        <AdSense pId={ADSENSE_PID} />
         {children}
         <Footer />
         {/* Google Analytics */}
