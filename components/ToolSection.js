@@ -3,7 +3,12 @@
 import { useState } from "react";
 import styles from "./ToolSection.module.css";
 import DropZone from "./DropZone";
-import StickerGrid from "./StickerGrid";
+import ShareButton from "./ShareButton";
+
+// ... existing imports ...
+
+// ... inside App component ...
+// (This comment was originally here to guide placement, removing the broken block)
 import { splitImage, processMainOrTab } from "../utils/imageProcessor";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -183,6 +188,7 @@ export default function ToolSection() {
                                         <button onClick={handleDownload} className="btn-primary">
                                             ZIPで保存
                                         </button>
+                                        <ShareButton />
                                         <button onClick={reset} className={styles.btnSub}>
                                             やり直す
                                         </button>
