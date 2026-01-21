@@ -23,13 +23,13 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://banana-stamp.pages.dev"),
+  metadataBase: new URL("https://banana-stamp.com"),
   title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
   description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
   openGraph: {
     title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
     description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
-    url: "https://banana-stamp.pages.dev",
+    url: "https://banana-stamp.com",
     siteName: "バナナスタンプ",
     locale: "ja_JP",
     type: "website",

@@ -6,6 +6,6 @@ export default function robots() {
             userAgent: "*",
             allow: "/",
         },
-        sitemap: "https://banana-stamp.pages.dev/sitemap.xml",
+        sitemap: "https://banana-stamp.com/sitemap.xml",
     };
 }

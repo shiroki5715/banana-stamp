@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
 export default function sitemap() {
-    const baseUrl = "https://banana-stamp.pages.dev";
+    const baseUrl = "https://banana-stamp.com";
     const lastModified = new Date();
 
     const routes = ["", "/howto", "/contact", "/terms", "/privacy-policy"].map(
