@@ -1,102 +1,107 @@
 # Nanobanana Pro
 
-**Nanobanana Pro** is a specialized Next.js web application for creating LINE Stickers that strictly adhere to LINE Creators Market guidelines. It features client-side image processing to automate splitting, resizing, and formatting.
+**Nanobanana Pro** は、LINEクリエイターズマーケットのガイドラインに厳密に準拠したLINEスタンプを作成するための、特化型 Next.js Webアプリケーションです。クライアントサイドでの画像処理により、分割、リサイズ、フォーマット変換を自動化します。
 
-## Project Overview
+## プロジェクト概要
 
-*   **Goal:** Automate the "Paste image -> Auto split & resize -> ZIP Export" workflow for LINE Creators.
-*   **Core Tech:** Next.js (App Router), React, HTML5 Canvas API.
-*   **Key Libraries:** `jszip` (zipping), `file-saver` (saving).
-*   **Processing:** All image manipulation (splitting, resizing, chroma key) happens entirely in the browser using the Canvas API.
+*   **ゴール:** LINEクリエイターのための「画像ペースト -> 自動分割・リサイズ -> ZIP出力」というワークフローを自動化すること。
+*   **コア技術:** Next.js (App Router), React, HTML5 Canvas API.
+*   **収益化:** Google AdSense (Approved & Integrated).
+*   **主要ライブラリ:** `jszip` (ZIP圧縮), `file-saver` (ファイル保存).
+*   **処理方式:** 画像操作（分割、リサイズの、クロマキー処理）はすべて Canvas API を使用してブラウザ上で完結します。
 
-## Architecture & Structure
+## アーキテクチャと構造
 
-*   **`app/`**: Next.js App Router pages and layouts.
-    *   `page.js`: Top page (Hero -> Workflow -> HowTo -> Tool -> FAQ).
-    *   `contact/page.js`: Contact form page.
-    *   `sitemap.js`: Generates `sitemap.xml`.
-    *   `robots.js`: Generates `robots.txt`.
-    *   `manifest.js`: Generates `manifest.webmanifest`.
-    *   `globals.css`: Global styles (variables, reset).
-*   **`components/`**: Reusable UI components.
-    *   `HeroSection.js`: Top MV area.
-    *   `WorkflowGuide.js`: [NEW] Visual step-by-step guide (SVG/CSS).
-    *   `HowToStep.js`: Text-based instructions.
-    *   `ToolSection.js`: Main sticker creation tool.
-    *   `StickerGrid.js`: Grid view of processed stickers.
-    *   `FaqSection.js`: Q&A list.
-    *   `ContactSection.js`: Google Form embed.
-*   **`utils/`**: Core logic independent of UI.
-    *   `imageProcessor.js`: The "brain" of the app. Handles:
-        *   **Splitting:** Cuts large grid images into individual stickers.
-        *   **Resizing:** Fits images into W370xH320 (minus 10px margin).
-        *   **Compliance:** Enforces even-numbered dimensions and 10px transparent margins.
-        *   **Chroma Key:** Simple background removal.
-*   **`public/`**: Static assets (SVGs, icons).
+*   **`app/`**: Next.js App Router のページとレイアウト。
+    *   `page.js`: トップページ (Hero -> Workflow -> HowTo -> Tool -> FAQ の順で構成)。
+    *   `contact/page.js`: お問い合わせフォームページ。
+    *   `sitemap.js`: `sitemap.xml` を生成。
+    *   `robots.js`: `robots.txt` を生成。
+    *   `manifest.js`: `manifest.webmanifest` を生成。
+    *   `globals.css`: グローバルスタイル (変数定義、リセットCSS)。
+*   **`components/`**: 再利用可能な UI コンポーネント。
+    *   `HeroSection.js`: トップのMV（メインビジュアル）エリア。
+    *   `WorkflowGuide.js`: [NEW] 視覚的なステップバイステップガイド (SVG/CSS)。
+    *   `HowToStep.js`: テキストベースの手順説明。
+    *   `ToolSection.js`: メインのスタンプ作成ツール部分。
+    *   `StickerGrid.js`: 処理済みスタンプのグリッド表示。
+    *   `FaqSection.js`: Q&A リスト。
+    *   `ContactSection.js`: Googleフォームの埋め込み。
+*   **`utils/`**: UI に依存しないコアロジック。
+    *   `imageProcessor.js`: アプリの「頭脳」。以下を処理します：
+        *   **分割 (Splitting):** 大きなグリッド画像を個別のスタンプ画像にカット。
+        *   **リサイズ (Resizing):** 画像を W370xH320 (マイナス10pxの余白) に収まるように調整。
+        *   **準拠チェック (Compliance):** 幅と高さを偶数に強制し、10pxの透過余白を自動付与。
+        *   **クロマキー (Chroma Key):** シンプルな背景削除機能。
+*   **`public/`**: 静的アセット (SVG, アイコンなど)。
 
-## Key Features
+## 主な機能
 
-1.  **Smart Split**: Automatically detects or accepts grid dimensions (e.g., 4x2) to split a single sheet into multiple stickers.
-2.  **Strict Compliance**:
-    *   Max Size: W370 x H320 px.
-    *   Margin: Automatically adds ~10px transparent margin.
-    *   Dimensions: Forces even numbers for width and height.
-    *   Format: PNG.
-3.  **Auto-Generation**: Automatically generates required `main.png` (W240xH240) and `tab.png` (W96xH74) from the first sticker.
-4.  **ZIP Export**: Bundles all files (`01.png`, `02.png`..., `main.png`, `tab.png`) into a single ZIP for easy upload.
-5.  **SEO & Analytics**: 
-    *   **Google Analytics**: Integrated via `next/script` (gtag.js).
-    *   **Search Console**: Verified via HTML file (`public/google....html`) and Meta tag.
-    *   **Metadata**: Dynamic Sitemap, Robots.txt, and strict OGP/Twitter Card tags.
+1.  **スマート分割 (Smart Split)**: グリッドの寸法（例: 4x2）を自動検出（または指定）し、1枚のシートを複数のスタンプに分割します。
+2.  **厳格な準拠 (Strict Compliance)**:
+    *   最大サイズ: W370 x H320 px.
+    *   余白: 上下左右に約10pxの透過余白を自動追加。
+    *   寸法: 幅と高さを強制的に偶数ピクセルに調整。
+    *   フォーマット: PNG。
+3.  **自動生成 (Auto-Generation)**: 最初のスタンプから必須画像である `main.png` (W240xH240) と `tab.png` (W96xH74) を自動生成します。
+4.  **ZIPエクスポート**: すべてのファイル (`01.png`, `02.png`..., `main.png`, `tab.png`) を1つのZIPファイルにまとめて、簡単にアップロードできるようにします。
+5.  **SEO & 分析**: 
+    *   **Google Analytics**: `next/script` (gtag.js) を通じて統合済み。
+    *   **Search Console**: HTMLファイル (`public/google....html`) および Metaタグで確認済み。
+    *   **メタデータ**: 動的サイトマップ、Robots.txt、および厳密な OGP/Twitter Card タグ。
 
-## Building and Running
+## ビルドと実行
 
-### Prerequisites
-*   Node.js (LTS recommended)
+### 前提条件
+*   Node.js (LTS 推奨)
 *   npm
-*   Cloudflare Wrangler (for deployment)
+*   Cloudflare Wrangler (デプロイ用)
 
-### Deployment
-*   **Target**: Cloudflare Pages
-*   **Project Name**: `banana-stamp`
-*   **URL**: `https://banana-stamp.com/`
-*   **Command**: `npx wrangler pages deploy out --project-name banana-stamp`
+### デプロイ
+*   **ターゲット**: Cloudflare Pages
+*   **プロジェクト名**: `banana-stamp`
+*   **本番 URL**: `https://banana-stamp.com/`
+*   **コマンド**: `npm run deploy` (内部で build + wrangler deploy を実行)
 
-### Commands
+### コマンド一覧
 
-*   **Install Dependencies:**
+*   **依存関係のインストール:**
     ```bash
     npm install
     ```
-*   **Run Development Server:**
+*   **開発サーバーの起動:**
     ```bash
     npm run dev
     ```
-    Access at `http://localhost:3000`.
-*   **Build for Production:**
+    `http://localhost:3000` でアクセスできます。
+*   **本番用ビルド:**
     ```bash
     npm run build
     ```
-*   **Start Production Server:**
+*   **本番サーバーの起動（ローカル確認用）:**
     ```bash
     npm start
     ```
-*   **Lint Code:**
+*   **コードのLintチェック:**
     ```bash
     npm run lint
     ```
+*   **デプロイ:**
+    ```bash
+    npm run deploy
+    ```
 
-## Development Conventions
+## 開発規約
 
-*   **Styling**: Use **CSS Modules** (`*.module.css`) for component-level styling to avoid conflicts. Use `globals.css` only for variables and resets.
-*   **State Management**: Use React `useState` and `useEffect` for local state. For complex global state, keep it simple (prop drilling is currently sufficient given the scope).
-*   **Image Processing**: 
-    *   Keep logic in `utils/imageProcessor.js`.
-    *   Use `Promise`s for async Canvas operations.
-    *   Avoid blocking the main thread where possible (though current implementation is sync/promise-based on main thread).
-*   **Filenames**: Adhere to LINE's naming convention (`01.png`, `main.png`, `tab.png`) in the export logic.
+*   **スタイリング**: コンポーネントレベルのスタイリングには **CSS Modules** (`*.module.css`) を使用し、競合を避けてください。`globals.css` は変数定義とリセットのみに使用します。
+*   **状態管理**: ローカルな状態には React の `useState` と `useEffect` を使用します。複雑なグローバル状態が必要な場合でも、現状のスコープではシンプルに保ちます（現在はPropsのバケツリレーで十分です）。
+*   **画像処理**: 
+    *   ロジックは `utils/imageProcessor.js` に集約してください。
+    *   非同期の Canvas 操作には `Promise` を使用してください。
+    *   可能な限りメインスレッドをブロックしないようにしてください（現在の実装はメインスレッドでの同期/Promiseベースですが）。
+*   **ファイル名**: エクスポートロジックにおいては、LINEの命名規則 (`01.png`, `main.png`, `tab.png`) を遵守してください。
 
-## Documentation References
+## ドキュメント参照
 
-*   **`README.md`**: Quick start guide.
-*   **`REQUIREMENTS.md`**: Detailed product requirements and specs.
+*   **`README.md`**: クイックスタートガイド。
+*   **`REQUIREMENTS.md`**: 詳細な製品要件定義書。

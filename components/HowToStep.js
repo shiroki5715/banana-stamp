@@ -41,7 +41,7 @@ export default function HowToStep() {
             <div className="container">
                 <div className={styles.header}>
                     <span className={styles.label}>HOW TO USE</span>
-                    <h2 className={styles.heading}>3ステップで完了。<br />迷う時間はゼロ。</h2>
+                    <h2 className={styles.heading}>3ステップで完了<br />迷う時間はゼロ</h2>
                 </div>
 
                 <div className={styles.grid}>

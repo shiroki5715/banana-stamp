@@ -4,7 +4,7 @@ export default function sitemap() {
     const baseUrl = "https://banana-stamp.com";
     const lastModified = new Date();
 
-    const routes = ["", "/howto", "/contact", "/terms", "/privacy-policy"].map(
+    const routes = ["", "/howto", "/contact", "/terms", "/privacy-policy", "/guide/howto", "/guide/requirements"].map(
         (route) => ({
             url: `${baseUrl}${route}`,
             lastModified: lastModified,

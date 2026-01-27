@@ -7,7 +7,7 @@ export default function SEOBottom() {
             <div className="container">
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#333' }}>
-                        LINEスタンプ作成を、もっと自由に、もっと簡単に。
+                        LINEスタンプ作成を、もっと自由に、もっと簡単に
                     </h2>
                     <p style={{ marginBottom: '1.5rem', lineHeight: '1.8', color: '#555' }}>
                         「バナナスタンプ」は、クリエイターの皆さまがLINEスタンプ制作にかける時間を大幅に短縮するために開発された無料ツールです。
@@ -39,7 +39,7 @@ export default function SEOBottom() {
                             border: '1px solid #eee'
                         }}>
                             <h4 style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: '#0070f3' }}>画像要件ガイド →</h4>
-                            <p style={{ fontSize: '0.9rem', color: '#666' }}>LINE公式規定に基づくサイズや余白のルール解説。</p>
+                            <p style={{ fontSize: '0.9rem', color: '#666' }}>LINE公式規定に基づくサイズや余白のルール解説</p>
                         </Link>
 
                         <Link href="/guide/howto" style={{
@@ -53,7 +53,7 @@ export default function SEOBottom() {
                             border: '1px solid #eee'
                         }}>
                             <h4 style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: '#0070f3' }}>詳しい使い方・FAQ →</h4>
-                            <p style={{ fontSize: '0.9rem', color: '#666' }}>ステップごとの解説と、困ったときのQ&A。</p>
+                            <p style={{ fontSize: '0.9rem', color: '#666' }}>ステップごとの解説と、困ったときのQ&A</p>
                         </Link>
                     </div>
                 </div>

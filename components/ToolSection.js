@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./ToolSection.module.css";
 import DropZone from "./DropZone";
+import StickerGrid from "./StickerGrid";
 import ShareButton from "./ShareButton";
 
 // ... existing imports ...
@@ -12,6 +13,7 @@ import ShareButton from "./ShareButton";
 import { splitImage, processMainOrTab } from "../utils/imageProcessor";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import { sendGAEvent } from "../utils/analytics";
 
 // LINE Standard Presets
 const PRESETS = [
@@ -42,8 +44,10 @@ export default function ToolSection() {
         try {
             const processed = await splitImage(file, r, c, currentMode);
             setStickers(processed);
+            // Track successful generation
+            sendGAEvent('generate_complete', { sticker_count: processed.length });
         } catch (error) {
-            console.error("Processing failed", error);
+            console.error("Processing failed details:", error);
             alert("処理に失敗しました。画像形式を確認してください。");
         } finally {
             setIsProcessing(false);
@@ -76,26 +80,33 @@ export default function ToolSection() {
     };
 
     const handleDownload = async () => {
-        const zip = new JSZip();
-        stickers.forEach((sticker, i) => {
-            const num = (i + 1).toString().padStart(2, '0');
-            // Use the blob directly (sticker.url is a Blob URL, not Base64)
-            zip.file(`${num}.png`, sticker.blob);
-        });
+        try {
+            const zip = new JSZip();
+            stickers.forEach((sticker, i) => {
+                const num = (i + 1).toString().padStart(2, '0');
+                zip.file(`${num}.png`, sticker.blob);
+            });
 
-        if (stickers.length > 0) {
-            try {
-                const mainImg = await processMainOrTab(stickers[0].url, 'main');
-                const tabImg = await processMainOrTab(stickers[0].url, 'tab');
-                zip.file("main.png", mainImg.blob);
-                zip.file("tab.png", tabImg.blob);
-            } catch (e) {
-                console.error("Error generating main/tab", e);
+            if (stickers.length > 0) {
+                try {
+                    // Pass blob directly instead of URL for reliability
+                    const mainImg = await processMainOrTab(stickers[0].blob, 'main');
+                    const tabImg = await processMainOrTab(stickers[0].blob, 'tab');
+                    zip.file("main.png", mainImg.blob);
+                    zip.file("tab.png", tabImg.blob);
+                } catch (e) {
+                    console.error("Error generating main/tab:", e);
+                    // Continue without main/tab if they fail
+                }
             }
-        }
 
-        const content = await zip.generateAsync({ type: "blob" });
-        saveAs(content, "line_stickers.zip");
+            const content = await zip.generateAsync({ type: "blob" });
+            saveAs(content, "line_stickers.zip");
+            sendGAEvent('download_zip', { sticker_count: stickers.length });
+        } catch (error) {
+            console.error("ZIP download failed:", error);
+            alert("ZIPファイルの生成に失敗しました。ページを再読み込みして再度お試しください。");
+        }
     };
 
     const reset = () => {
@@ -110,7 +121,7 @@ export default function ToolSection() {
                 {/* Section Header */}
                 <div className={styles.sectionHeader}>
                     <h2 className={styles.title}>スタンプ作成ツール</h2>
-                    <p className={styles.desc}>設定を選んで、画像をドロップするだけ。</p>
+                    <p className={styles.desc}>設定を選んで、画像をドロップするだけ</p>
                 </div>
 
                 <div className={styles.grid}>
@@ -144,10 +155,10 @@ export default function ToolSection() {
                                 <div className={styles.selectWrapper}>
                                     <select value={bgMode} onChange={handleBgModeChange} className={styles.select}>
                                         <option value="none">しない</option>
-                                        <option value="white">白除外 (手書き/スキャン)</option>
-                                        <option value="green">緑除外 (GB)</option>
-                                        <option value="blue">青除外 (BB)</option>
-                                        <option value="magenta">マゼンタ除外</option>
+                                        <option value="white">白背景を透過</option>
+                                        <option value="green">緑背景を透過</option>
+                                        <option value="blue">青背景を透過</option>
+                                        <option value="magenta">マゼンタ背景を透過</option>
                                     </select>
                                 </div>
                                 <p className={styles.helpText}>※特定の色を透明にします</p>

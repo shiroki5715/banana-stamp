@@ -25,6 +25,7 @@ export const metadata = {
   metadataBase: new URL("https://banana-stamp.com"),
   title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
   description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
+  keywords: ["LINEスタンプ", "スタンプ作成", "自作スタンプ", "スタンプ分割", "リサイズ", "透過", "クリエイターズマーケット", "PNG変換", "無料ツール"],
   openGraph: {
     title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
     description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。クリエイターのための最強時短ツール。",
@@ -51,13 +52,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4792239930558838"
-          crossOrigin="anonymous"
-        ></script>
       </head>
       <body className={`${notoSansJP.variable} ${zenKaku.variable} ${inter.variable}`}>
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4792239930558838`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
         <StickyHeader />
         {children}
         <Footer />

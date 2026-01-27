@@ -41,7 +41,7 @@ export default function StickyHeader() {
 
                 <nav className={styles.nav}>
                     <a href="#howto" onClick={handleNavClick('howto')} className={styles.link}>使い方</a>
-                    <a href="#templates" onClick={handleNavClick('templates')} className={styles.link}>テンプレート</a>
+                    <a href="#templates" onClick={handleNavClick('templates')} className={styles.link}>サイズ例</a>
                     <a href="#faq" onClick={handleNavClick('faq')} className={styles.link}>FAQ</a>
                 </nav>
 

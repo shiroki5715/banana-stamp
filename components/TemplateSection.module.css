@@ -94,7 +94,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    margin-bottom: 1rem;
 }
 
 .count {
@@ -111,29 +110,4 @@
 .layout {
     font-size: 0.75rem;
     color: var(--color-text-muted);
-}
-
-/* Download Button */
-.dlBtn {
-    background: var(--color-banana);
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s;
-    color: var(--color-black);
-}
-
-.dlBtn:hover {
-    background: var(--color-banana-dark);
-    transform: translateY(-1px);
-}
-
-.dlBtn:active {
-    transform: translateY(1px);
 }

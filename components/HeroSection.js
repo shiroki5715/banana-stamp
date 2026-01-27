@@ -29,12 +29,12 @@ export default function HeroSection() {
 
                     <h1 className={styles.title}>
                         1枚の画像を、<br />
-                        <span className={styles.heroText}>一瞬でスタンプに。</span>
+                        <span className={styles.heroText}>一瞬でスタンプに</span>
                     </h1>
 
                     <p className={styles.subtitle}>
-                        面倒な分割・リサイズ・フォーマット変換を全自動で。<br />
-                        個数を選んでアップロードするだけ。
+                        面倒な分割・リサイズ・フォーマット変換を全自動で<br />
+                        個数を選んでアップロードするだけ
                         <br />
                         <span className={styles.techSpec}>main.png / tab.png も自動生成</span>
                     </p>

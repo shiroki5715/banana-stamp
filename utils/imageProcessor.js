@@ -237,27 +237,51 @@ export const processMainOrTab = (imageSource, type = 'main') => {
         const targetH = type === 'main' ? MAIN_H : TAB_H;
 
         const img = new Image();
+        let objectUrl = null;
+
         img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = targetW;
-            canvas.height = targetH;
-            const ctx = canvas.getContext("2d");
+            try {
+                const canvas = document.createElement("canvas");
+                canvas.width = targetW;
+                canvas.height = targetH;
+                const ctx = canvas.getContext("2d");
 
-            let { w, h } = resizeToFit(img, targetW, targetH);
+                let { w, h } = resizeToFit(img, targetW, targetH);
 
-            // Center in the box
-            const x = (targetW - w) / 2;
-            const y = (targetH - h) / 2;
+                // Center in the box
+                const x = (targetW - w) / 2;
+                const y = (targetH - h) / 2;
 
-            ctx.clearRect(0, 0, targetW, targetH);
-            ctx.drawImage(img, x, y, w, h);
+                ctx.clearRect(0, 0, targetW, targetH);
+                ctx.drawImage(img, x, y, w, h);
 
-            canvas.toBlob((blob) => {
-                resolve({ blob });
-            }, "image/png");
+                canvas.toBlob((blob) => {
+                    if (objectUrl) URL.revokeObjectURL(objectUrl);
+                    if (blob) {
+                        resolve({ blob });
+                    } else {
+                        reject(new Error("Failed to create blob from canvas"));
+                    }
+                }, "image/png");
+            } catch (e) {
+                if (objectUrl) URL.revokeObjectURL(objectUrl);
+                reject(e);
+            }
         };
-        img.onerror = reject;
-        img.src = typeof imageSource === 'string' ? imageSource : URL.createObjectURL(imageSource);
+        img.onerror = (e) => {
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
+            reject(new Error("Failed to load image for main/tab processing"));
+        };
+
+        // Handle both Blob objects and URLs (string or Blob URL)
+        if (imageSource instanceof Blob) {
+            objectUrl = URL.createObjectURL(imageSource);
+            img.src = objectUrl;
+        } else if (typeof imageSource === 'string') {
+            img.src = imageSource;
+        } else {
+            reject(new Error("Invalid image source type"));
+        }
     });
 };
 
