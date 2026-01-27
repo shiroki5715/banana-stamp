@@ -1,14 +1,8 @@
 "use client";
 
 import styles from "./HeroSection.module.css";
-import { useEffect, useState } from "react";
 
 export default function HeroSection() {
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const scrollTo = (id) => (e) => {
         e.preventDefault();

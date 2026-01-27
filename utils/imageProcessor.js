@@ -162,8 +162,6 @@ const removeBackground = (ctx, width, height, mode) => {
     ctx.putImageData(imageData, 0, 0);
 };
 
-// Helper to remove background based on Chroma Key - REMOVED removeWatermark
-
 export const processSticker = (imageSource, bgMode = 'none') => {
     return new Promise((resolve, reject) => {
         const img = new Image();
