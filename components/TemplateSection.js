@@ -1,8 +1,11 @@
 "use client";
 
 import styles from "./TemplateSection.module.css";
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 export default function TemplateSection() {
+    const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
     // Template data with grid layout information
     const templates = [
         { count: 8, rows: 2, cols: 4, size: "1480 x 640px" },
@@ -13,14 +16,14 @@ export default function TemplateSection() {
     ];
 
     return (
-        <section id="templates" className={styles.section}>
+        <section id="templates" ref={ref} className={`${styles.section} fade-in-section ${isVisible ? 'is-visible' : ''}`}>
             <div className="container">
                 <div className={styles.inner}>
                     <div className={styles.header}>
-                        <h2 className={styles.heading}>推奨キャンバスサイズ</h2>
+                        <span className={styles.label}>GRID SPECS</span>
+                        <h2 className={styles.heading}>推奨サイズ一覧</h2>
                         <p className={styles.desc}>
-                            スタンプ個数ごとの推奨サイズです。<br />
-                            お好みの画像編集アプリで原稿を作成してください
+                            きれいに分割するための推奨キャンバスサイズ
                         </p>
                     </div>
 
@@ -42,17 +45,12 @@ export default function TemplateSection() {
                                             </div>
                                         ))}
                                     </div>
-                                    {t.rows > 4 && (
-                                        <div className={styles.moreIndicator}>
-                                            +他 {t.count - 16} 枚
-                                        </div>
-                                    )}
                                 </div>
 
                                 <div className={styles.info}>
-                                    <span className={styles.count}>{t.count}個用</span>
+                                    <span className={styles.count}>{t.count} UNITS</span>
                                     <span className={styles.size}>{t.size}</span>
-                                    <span className={styles.layout}>{t.rows}行 × {t.cols}列</span>
+                                    <span className={styles.layout}>{t.rows}R x {t.cols}C</span>
                                 </div>
                             </div>
                         ))}

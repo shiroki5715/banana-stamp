@@ -1,12 +1,17 @@
+/* FAQ - Pop & Friendly */
 .section {
-    padding: 6rem 0;
-    background: var(--color-base);
+    padding: 80px 0;
+    background-color: #FFFDF5;
+    /* Creamy yellow base */
 }
 
 .heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-8);
 }
 
 .list {
@@ -14,60 +19,59 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-4);
 }
 
 .item {
-    background: var(--color-surface);
-    border-radius: 16px;
+    background: #FFF;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border-default);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.02);
+    transition: all 0.2s;
 }
 
 .question {
     width: 100%;
-    padding: 1.5rem;
-    background: transparent;
+    padding: var(--space-6);
+    background: #FFF;
+    border: none;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: var(--space-4);
+    cursor: pointer;
     text-align: left;
+}
+
+.qMark {
+    color: var(--color-brand);
     font-weight: 700;
-    font-size: 1.05rem;
-    color: var(--color-text);
-    gap: 1rem;
+    font-size: 1.25rem;
 }
 
-.question:hover {
-    background: rgba(0, 0, 0, 0.01);
+.qText {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
 }
 
-.icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-base);
-    border-radius: 50%;
-    font-weight: 400;
-    color: var(--color-banana-dark);
+.item.open {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    border-color: var(--color-brand);
 }
 
 .answer {
     overflow: hidden;
-    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.3s ease;
+    background: #FAFAFA;
 }
 
 .answerText {
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    color: var(--color-text-muted);
-    line-height: 1.7;
-}
-
-.open .icon {
-    background: var(--color-banana);
-    color: black;
+    padding: var(--space-4) var(--space-6);
+    padding-left: calc(var(--space-6) + 30px);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-line;
 }

@@ -6,7 +6,7 @@ export default function ContactSection() {
             <div className={styles.container}>
                 <h2 className={styles.heading}>お問い合わせ / 不具合報告</h2>
                 <p className={styles.desc}>
-                    ご意見・ご要望・不具合などございましたら、<br className={styles.spBr} />下記フォームよりお気軽にお知らせください。
+                    ご意見・ご要望・不具合などございましたら<br className={styles.spBr} />下記フォームよりお知らせください
                 </p>
 
                 <div className={styles.formWrapper}>

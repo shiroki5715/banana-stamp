@@ -1,0 +1,21 @@
+# lefthook.yml
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    # JavaScript / TypeScript
+    eslint:
+      glob: "**/*.{js,ts,jsx,tsx,cjs,mjs}"
+      run: npx eslint {staged_files}
+
+    # Prettier Check (Not fix, to avoid confusion during commit? Or fix? Usually verify)
+    # If you want auto-fix, use 'run: npx prettier --write {staged_files} && git add {staged_files}'
+    # But for "Guard", check is safer.
+    markup-formatting:
+      glob: "**/*.{json,md,yml,yaml,css,scss}"
+      run: npx prettier --check {staged_files}
+
+    # Secrets detection (Future expansion)
+    # no-secrets:
+    #   run: gitleaks detect --redact --staged

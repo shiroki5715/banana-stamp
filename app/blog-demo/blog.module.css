@@ -1,0 +1,214 @@
+/* Aesthetic Test - Neural Matrix Theme */
+
+.container {
+    /* Full screen takeover */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #050505;
+    color: #fff;
+    overflow-y: auto;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+
+    /* Retrowave Grid Background */
+    background-image:
+        linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4rem;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(189, 0, 255, 0.2), transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
+    animation: pulse 8s infinite alternate;
+}
+
+/* Glitch Typography */
+.title {
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: color-dodge;
+}
+
+.highlight {
+    color: transparent;
+    -webkit-text-stroke: 2px #00f3ff;
+    position: relative;
+}
+
+.highlight::after {
+    content: 'INTELLIGENCE';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: #bd00ff;
+    -webkit-text-stroke: 0;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+/* Bento Grid System */
+.gridSection {
+    padding: 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.bentoGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 300px);
+    gap: 1.5rem;
+}
+
+.card {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #00f3ff;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+    z-index: 10;
+}
+
+/* Card Size Variants */
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.col-span-3 {
+    grid-column: span 3;
+}
+
+.row-span-2 {
+    grid-row: span 2;
+}
+
+/* Content Styles */
+.date {
+    font-family: monospace;
+    color: #00f3ff;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.cardTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cardDesc {
+    color: #888;
+    line-height: 1.6;
+}
+
+/* Image Placeholder with Pure CSS */
+.techVisual {
+    flex: 1;
+    background:
+        radial-gradient(circle at 30% 30%, #333 1px, transparent 1px),
+        radial-gradient(circle at 70% 70%, #333 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-radius: 12px;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.techVisual::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: #bd00ff;
+    filter: blur(40px);
+    transform: translate(-50%, -50%);
+    animation: float 5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(-50%, -60%) rotate(10deg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .title {
+        font-size: 4rem;
+    }
+
+    .bentoGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .col-span-2,
+    .col-span-3,
+    .row-span-2 {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .card {
+        min-height: 300px;
+    }
+}

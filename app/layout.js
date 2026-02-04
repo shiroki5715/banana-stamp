@@ -1,24 +1,19 @@
 import "./globals.css";
 import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
-import { Noto_Sans_JP, Zen_Kaku_Gothic_New, Inter } from "next/font/google";
+import { Zen_Maru_Gothic, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 
-const notoSansJP = Noto_Sans_JP({
+const zenMaru = Zen_Maru_Gothic({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-body",
+  weight: ["400", "500", "700"],
+  variable: "--font-display",
 });
 
-const zenKaku = Zen_Kaku_Gothic_New({
+const ibmMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
-  variable: "--font-heading",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-eng",
+  weight: ["400"],
+  variable: "--font-mono",
 });
 
 export const metadata = {
@@ -53,7 +48,7 @@ export default function RootLayout({ children }) {
     <html lang="ja">
       <head>
       </head>
-      <body className={`${notoSansJP.variable} ${zenKaku.variable} ${inter.variable}`}>
+      <body className={`${zenMaru.variable} ${ibmMono.variable}`}>
         <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4792239930558838`}

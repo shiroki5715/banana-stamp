@@ -1,102 +1,62 @@
 "use client";
 
-import styles from "./HeroSection.module.css";
+import styles from './HeroSection.module.css';
+import Image from 'next/image';
 
 export default function HeroSection() {
-
-    const scrollTo = (id) => (e) => {
-        e.preventDefault();
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const scrollToTool = () => {
+        const element = document.getElementById('tool');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     return (
         <section className={styles.hero}>
             <div className={`container ${styles.grid}`}>
-                {/* Left: Copy & Actions */}
-                <div className={styles.content}>
-                    <div className={styles.badgeGroup}>
-                        <span className={styles.badge}>
-                            <span className={styles.dot}></span> ブラウザ完結・インストール不要
-                        </span>
-                        <span className={styles.badgeLine}>LINEスタンプ専用</span>
+                {/* Left: Content */}
+                <div className={styles.heroStart}>
+                    <div className={styles.brandBadge}>
+                        <span>🚀</span>
+                        LINEスタンプ作成ツール
                     </div>
 
                     <h1 className={styles.title}>
-                        1枚の画像を、<br />
-                        <span className={styles.heroText}>一瞬でスタンプに</span>
+                        面倒な作業は、<br />
+                        <span className={styles.highlight}>ぜ〜んぶおまかせ！</span>
                     </h1>
 
                     <p className={styles.subtitle}>
-                        面倒な分割・リサイズ・フォーマット変換を全自動で<br />
-                        個数を選んでアップロードするだけ
-                        <br />
-                        <span className={styles.techSpec}>main.png / tab.png も自動生成</span>
+                        1枚の画像をポンッと置くだけ。<br />
+                        分割もリサイズも、一瞬で完了。<br />
+                        クリエイターのための最強時短ツールです。
                     </p>
 
-                    <div className={styles.ctaGroup}>
-                        <a href="#tool" onClick={scrollTo('tool')} className="btn-primary">
-                            今すぐ作る
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 4V20M12 20L18 14M12 20L6 14" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </a>
-                        <a href="#howto" onClick={scrollTo('howto')} className="btn-secondary">
-                            使い方を見る
+                    <div className={styles.actions}>
+                        <button onClick={scrollToTool} className="btn-primary">
+                            今すぐバナナする！🍌
+                        </button>
+                        <a href="#howto" className="btn-secondary">
+                            使い方はこちら
                         </a>
                     </div>
 
-                    <div className={styles.trust}>
-                        <span className={styles.check}>✓ 登録不要</span>
-                        <span className={styles.check}>✓ 完全無料</span>
-                        <span className={styles.check}>✓ プライバシー保護</span>
+                    <div className={styles.specs}>
+                        <div className={styles.specItem}>登録不要</div>
+                        <div className={styles.specItem}>完全無料</div>
+                        <div className={styles.specItem}>ブラウザ完結</div>
                     </div>
                 </div>
 
-                {/* Right: Premium Visual */}
+                {/* Right: Visual (Sticker Mockup) */}
                 <div className={styles.visual}>
-                    <div className={styles.cardContainer}>
-                        {/* Background elements */}
-                        <div className={styles.blobYellow}></div>
-                        <div className={styles.blobGreen}></div>
-
-                        {/* Glass Card */}
-                        <div className={`${styles.glassCard} glass-card`}>
-                            <div className={styles.windowControls}>
-                                <span></span><span></span><span></span>
-                            </div>
-
-                            <div className={styles.simulation}>
-                                {/* Left: Original File */}
-                                <div className={styles.simItem}>
-                                    <div className={styles.fileIcon}>
-                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                                            <circle cx="8.5" cy="8.5" r="1.5" />
-                                            <polyline points="21 15 16 10 5 21" />
-                                        </svg>
-                                        <span className={styles.fileLabel}>Original</span>
-                                    </div>
-                                </div>
-
-                                {/* Action */}
-                                <div className={styles.arrowContainer}>
-                                    <div className={styles.arrowLine}></div>
-                                    <div className={styles.arrowHead}></div>
-                                </div>
-
-                                {/* Right: Result Grid */}
-                                <div className={styles.simItem}>
-                                    <div className={styles.gridPreview}>
-                                        {[...Array(8)].map((_, i) => (
-                                            <div key={i} className={styles.stickerItem} style={{ animationDelay: `${i * 0.1}s` }}></div>
-                                        ))}
-                                    </div>
-                                    <div className={styles.zipBadge}>
-                                        <span>ZIP</span>
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className={styles.stickerSheet}>
+                        {/* Simple visual representation using CSS Grid/Flex for sticker preview */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+                            <div style={{ aspectRatio: '1/1', background: '#FFF9C4', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>🍌</div>
+                            <div style={{ aspectRatio: '1/1', background: '#E3F2FD', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>💨</div>
+                            <div style={{ aspectRatio: '1/1', background: '#FFEBEE', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>💖</div>
+                            <div style={{ aspectRatio: '1/1', background: '#E8F5E9', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>👍</div>
                         </div>
                     </div>
                 </div>

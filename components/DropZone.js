@@ -46,11 +46,16 @@ export default function DropZone({ onFileSelect }) {
                 onChange={handleChange}
             />
             <label htmlFor="fileInput" className={styles.label}>
-                <div className={styles.icon}>📁</div>
-                <p className={styles.text}>
-                    画像をここにドラッグ＆ドロップ<br />
-                    <span className={styles.subtext}>またはクリックして選択</span>
-                </p>
+                <div className={styles.iconCircle}>
+                    📁
+                </div>
+                <div className={styles.textGroup}>
+                    <p className={styles.mainText}>ここに画像をドロップ！</p>
+                    <p className={styles.subText}>またはクリックして選択</p>
+                </div>
+                <div className={styles.buttonLike}>
+                    画像を選ぶ
+                </div>
             </label>
         </div>
     );

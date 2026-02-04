@@ -1,36 +1,41 @@
+/* Contact Section - Pop Style */
 .section {
-    padding: 60px 20px;
-    background: #fff;
-    border-top: 1px solid #eee;
+    padding: 80px 0;
+    background: var(--bg-app);
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    padding: 0 var(--space-4);
 }
 
 .heading {
-    font-size: 1.8rem;
-    color: var(--color-black);
-    margin-bottom: 16px;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
     font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
 }
 
 .desc {
-    color: var(--color-gray);
-    margin-bottom: 40px;
-    line-height: 1.6;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+    line-height: 1.8;
 }
 
 .formWrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #f9f9f9;
-    border-radius: 12px;
-    padding: 20px 0;
+    background: #FFF;
+    border: 4px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .iframe {
@@ -39,7 +44,6 @@
     border: none;
     display: block;
     margin: 0 auto;
-    /* モバイルでスクロール時などの挙動安定化 */
 }
 
 @media (max-width: 600px) {
@@ -47,12 +51,8 @@
         font-size: 1.5rem;
     }
 
-    .spBr {
-        display: block;
-    }
-
     .formWrapper {
         padding: 0;
-        background: transparent;
+        border-width: 2px;
     }
 }

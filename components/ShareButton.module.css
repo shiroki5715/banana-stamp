@@ -1,23 +1,25 @@
+/* Share Button - Clean Design */
 .shareBtn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    background-color: #000;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
+    gap: var(--space-2);
+    background-color: var(--color-text);
+    color: #FFFFFF;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
     text-decoration: none;
-    transition: all 0.2s ease;
-    border: 2px solid transparent;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    border: none;
 }
 
 .shareBtn:hover {
-    background-color: #333;
+    background-color: var(--color-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .shareBtn:active {
@@ -25,6 +27,6 @@
 }
 
 .shareBtn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }

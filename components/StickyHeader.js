@@ -12,7 +12,7 @@ export default function StickyHeader() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
+            setIsScrolled(window.scrollY > 10);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -21,13 +21,11 @@ export default function StickyHeader() {
     const handleNavClick = (sectionId) => (e) => {
         e.preventDefault();
         if (pathname === "/") {
-            // Same page: smooth scroll
             const element = document.getElementById(sectionId);
             if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
             }
         } else {
-            // Different page: navigate to home with hash
             router.push(`/#${sectionId}`);
         }
     };
@@ -35,19 +33,20 @@ export default function StickyHeader() {
     return (
         <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
             <div className={styles.container}>
-                <Link href="/" className={styles.logo}>
-                    🍌 バナナスタンプ
-                </Link>
+                <div className={styles.logo} onClick={() => router.push('/')}>
+                    <span className={styles.logoIcon}>🍌</span>
+                    Banana Stamp
+                </div>
 
                 <nav className={styles.nav}>
                     <a href="#howto" onClick={handleNavClick('howto')} className={styles.link}>使い方</a>
-                    <a href="#templates" onClick={handleNavClick('templates')} className={styles.link}>サイズ例</a>
-                    <a href="#faq" onClick={handleNavClick('faq')} className={styles.link}>FAQ</a>
+                    <a href="#templates" onClick={handleNavClick('templates')} className={styles.link}>仕様一覧</a>
+                    <a href="#faq" onClick={handleNavClick('faq')} className={styles.link}>よくある質問</a>
                 </nav>
 
                 <div className={styles.actions}>
                     <a href="#tool" onClick={handleNavClick('tool')} className={styles.cta}>
-                        今すぐ作る
+                        今すぐ作る！
                     </a>
                 </div>
             </div>

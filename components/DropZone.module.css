@@ -1,69 +1,79 @@
+/* DropZone - Pop Style */
 .dropzone {
-    width: 100%;
-    height: 100%;
-    min-height: 350px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    background: var(--color-surface);
-    border: 3px dashed #ddd;
-    /* Explicit border */
+    border: 4px dashed #E0E0E0;
+    border-radius: var(--radius-lg);
+    background-color: #FAFAFA;
+    padding: var(--space-8);
+    min-height: 400px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.dropzone:hover {
-    border-color: var(--color-banana);
-    background: var(--color-banana-pale);
-    transform: scale(0.995);
-}
-
+.dropzone:hover,
 .dropzone.active {
-    background: var(--color-banana-pale);
-    border-color: var(--color-banana);
-    border-style: solid;
-    /* Solid on active text */
+    border-color: var(--color-brand);
+    background-color: var(--bg-subtle);
     transform: scale(0.99);
-    box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
 .input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 10;
+    display: none;
 }
 
 .label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    gap: var(--space-4);
+}
+
+.iconCircle {
+    font-size: 4rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dropzone:hover .iconCircle {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.textGroup {
     text-align: center;
-    pointer-events: none;
-    padding: 2rem;
 }
 
-.icon {
-    font-size: 5rem;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease;
+.mainText {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
 }
 
-.dropzone:hover .icon {
-    transform: scale(1.1) rotate(5deg);
+.subText {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
 }
 
-.text {
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: var(--color-text);
-    margin-bottom: 0.5rem;
+.buttonLike {
+    margin-top: var(--space-4);
+    background: #FFF;
+    border: 2px solid var(--color-brand);
+    color: var(--text-primary);
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 0 #F0D000;
+    transition: all 0.2s;
 }
 
-.subtext {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
+.dropzone:hover .buttonLike {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #F0D000;
 }

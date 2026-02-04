@@ -1,295 +1,185 @@
+/* Tool Section - Clean & Pop */
 .section {
-    padding: 6rem 0;
-    /* Increased padding */
-    background: linear-gradient(to bottom, transparent, var(--color-base) 20%);
+    padding: 80px 0;
+    background-color: transparent;
+    /* Background handled by global body pattern */
+    position: relative;
 }
 
-.sectionHeader {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.desc {
-    color: var(--text-muted);
-}
-
-
-/* Grid Layout */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-@media (min-width: 900px) {
-    .grid {
-        grid-template-columns: 1fr 1.5fr;
-        /* Settings < Action area */
-        align-items: start;
-    }
-}
-
-/* Card Styles */
-.card {
-    background: var(--color-surface);
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-border);
+.windowFrame {
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    /* Soft float shadow */
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    border: 4px solid #FFFFFF;
 }
 
-.cardHeader {
-    padding: 1.5rem 2rem;
-    background: var(--color-surface-hover);
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.cardHeader h3 {
-    font-size: 1.2rem;
-    margin: 0;
-}
-
-.stepBadge {
-    width: 32px;
-    height: 32px;
-    background: var(--color-black);
-    color: var(--color-banana);
-    border-radius: 50%;
+/* Header Area */
+.windowHeader {
+    background: var(--bg-subtle);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 2px dashed var(--border-default);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
-    font-family: var(--font-eng);
 }
 
-.cardBody {
-    padding: 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.actionBody {
-    min-height: 400px;
-    position: relative;
-    /* For loader */
-}
-
-/* Controls */
-.controlGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.label {
-    font-size: 0.95rem;
+.windowTitle {
+    font-family: var(--font-display);
     font-weight: 700;
-    color: var(--color-text);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
 }
 
-/* Segmented Buttons (Affordance Improved) */
-.segments {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.segmentBtn {
-    flex: 1;
-    background: var(--color-surface);
-    border: 1px solid transparent;
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
-    font-weight: 700;
-    color: var(--color-text-muted);
-    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-    min-width: 60px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
-        0 1px 3px rgba(0, 0, 0, 0.1);
-    /* Soft shadow for depth */
-}
-
-.segmentBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    color: var(--color-text);
-}
-
-.segmentBtn:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.segmentBtn.active {
-    background: var(--color-banana);
-    color: var(--color-black);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Inset shadow for "pressed" state */
-    transform: translateY(1px);
-    border-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Select Box (Affordance Improved) */
-.selectWrapper {
-    position: relative;
-}
-
-.select {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 12px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    font-family: inherit;
-    font-weight: 600;
-    color: var(--color-text);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    appearance: none;
-    /* Custom arrow needed if we want full control, but basic is fine */
-}
-
-.select:hover {
-    border-color: #aaa;
-}
-
-.helpText {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: -0.4rem;
-}
-
-
-/* Results & Upload Area */
-.uploadContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 1rem;
-}
-
-.notes {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    background: var(--color-surface-hover);
-    padding: 1rem;
-    border-radius: 8px;
-    line-height: 1.5;
-}
-
-/* Result View */
-.resultArea {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 1.5rem;
-}
-
-.resultHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.resultInfo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.successIcon {
-    color: var(--color-line);
+.windowTitle::before {
+    content: "🎨";
     font-size: 1.5rem;
 }
 
-.previewScroll {
-    flex: 1;
-    overflow-y: auto;
-    max-height: 400px;
-    /* Limit height */
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 1rem;
-}
-
-.resultActions {
+/* Toolbar */
+.toolbar {
+    padding: var(--space-6);
+    background: #FFF;
+    border-bottom: 1px solid var(--border-default);
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    justify-content: center;
+}
+
+.toolbarGroup {
+    display: flex;
     flex-direction: column;
+    gap: var(--space-2);
+    align-items: center;
 }
 
-@media (min-width: 600px) {
-    .resultActions {
-        flex-direction: row;
-    }
-}
-
-.btnSub {
-    background: transparent;
-    border: 2px solid var(--color-border);
-    padding: 1rem 2rem;
-    border-radius: 99px;
+.label {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
     font-weight: 700;
-    color: var(--color-text-muted);
+    color: var(--text-secondary);
+}
+
+.toggleGroup {
+    display: flex;
+    background: var(--bg-subtle);
+    padding: 4px;
+    border-radius: var(--radius-full);
+    gap: 4px;
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-full);
     transition: all 0.2s;
 }
 
-.btnSub:hover {
-    border-color: var(--color-text);
-    color: var(--color-text);
-    background: var(--color-surface-hover);
+.toggleBtn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.5);
 }
 
-/* Loader */
-.loader {
+.toggleBtn.active {
+    background: #FFFFFF;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+/* Workspace */
+.workspace {
+    padding: var(--space-6);
+    background: #FFF;
+    min-height: 400px;
+}
+
+.dropAreaContainer {
+    position: relative;
+    height: 100%;
+}
+
+.processingOverlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.9);
-    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    z-index: 10;
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(2px);
 }
 
 .spinner {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #eee;
-    border-top-color: var(--color-banana);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    animation: bounce 0.6s infinite alternate;
 }
 
-@keyframes spin {
+@keyframes bounce {
     from {
-        transform: rotate(0deg);
+        transform: translateY(0);
     }
 
     to {
-        transform: rotate(360deg);
+        transform: translateY(-20px);
+    }
+}
+
+/* Results Area */
+.resultsArea {
+    padding: var(--space-4);
+}
+
+.resultsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    text-align: center;
+}
+
+.resultsTitle {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.resultActions {
+    display: flex;
+    gap: var(--space-4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toggleGroup {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .resultActions {
+        flex-direction: column;
+        width: 100%;
     }
 }
