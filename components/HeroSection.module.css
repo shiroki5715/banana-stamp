@@ -100,7 +100,7 @@
     font-weight: 500;
 }
 
-.actions {
+.ctaGroup {
     display: flex;
     gap: var(--space-4);
     margin-top: var(--space-4);
@@ -166,7 +166,7 @@
         align-items: center;
     }
 
-    .actions {
+    .ctaGroup {
         flex-direction: column;
         width: 100%;
     }

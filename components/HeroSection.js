@@ -1,7 +1,6 @@
 "use client";
 
 import styles from './HeroSection.module.css';
-import Image from 'next/image';
 
 export default function HeroSection() {
     const scrollToTool = () => {
@@ -32,11 +31,11 @@ export default function HeroSection() {
                         クリエイターのための最強時短ツールです。
                     </p>
 
-                    <div className={styles.actions}>
+                    <div className={styles.ctaGroup}>
                         <button onClick={scrollToTool} className="btn-primary">
-                            今すぐバナナする！🍌
+                            今すぐスタンプを作る！🍌
                         </button>
-                        <a href="#howto" className="btn-secondary">
+                        <a href="/guide/howto" className="btn-secondary">
                             使い方はこちら
                         </a>
                     </div>

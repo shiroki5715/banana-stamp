@@ -1,9 +1,18 @@
 /* Sticker Grid - Pop Style */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    display: grid;
+    /* LINEスタンプのシミュレーションとして4列固定 */
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-4);
     margin-top: var(--space-6);
+}
+
+@media (max-width: 600px) {
+    .grid {
+        /* モバイルでは視認性優先で2列 */
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .card {
@@ -14,7 +23,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 1 / 1.2;
+    /* LINE Stamp Max Size: 370px x 320px (approx 1.156) */
+    aspect-ratio: 1.156 / 1;
     transition: transform 0.2s;
     border: 2px solid transparent;
 }

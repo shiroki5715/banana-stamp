@@ -21,9 +21,9 @@ export default function TemplateSection() {
                 <div className={styles.inner}>
                     <div className={styles.header}>
                         <span className={styles.label}>GRID SPECS</span>
-                        <h2 className={styles.heading}>推奨サイズ一覧</h2>
+                        <h2 className={styles.heading}>キャンバスサイズ一覧</h2>
                         <p className={styles.desc}>
-                            きれいに分割するための推奨キャンバスサイズ
+                            きれいに分割するためのキャンバスサイズ
                         </p>
                     </div>
 
@@ -31,17 +31,22 @@ export default function TemplateSection() {
                         {templates.map((t) => (
                             <div key={t.count} className={styles.item}>
                                 {/* Grid Preview */}
-                                <div className={styles.preview}>
+                                <div
+                                    className={styles.preview}
+                                    style={{
+                                        aspectRatio: `1480 / ${320 * t.rows}`
+                                    }}
+                                >
                                     <div
                                         className={styles.gridPreview}
                                         style={{
                                             gridTemplateColumns: `repeat(${t.cols}, 1fr)`,
-                                            gridTemplateRows: `repeat(${Math.min(t.rows, 4)}, 1fr)`,
+                                            gridTemplateRows: `repeat(${t.rows}, 1fr)`,
                                         }}
                                     >
-                                        {[...Array(Math.min(t.count, 16))].map((_, i) => (
+                                        {[...Array(t.count)].map((_, i) => (
                                             <div key={i} className={styles.cell}>
-                                                <span>{String(i + 1).padStart(2, '0')}</span>
+                                                <span>{i + 1}</span>
                                             </div>
                                         ))}
                                     </div>

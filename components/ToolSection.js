@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -23,42 +23,61 @@ const ToolSection = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [selectedPreset, setSelectedPreset] = useState(PRESETS[1]); // Default 16
     const [bgMode, setBgMode] = useState('none');
+    const [sourceFile, setSourceFile] = useState(null);
     const resultRef = useRef(null);
+
+    // --- Reactive Processing ---
+    useEffect(() => {
+        let active = true;
+
+        if (sourceFile) {
+            const process = async () => {
+                setIsProcessing(true);
+                try {
+                    const result = await splitImage(
+                        sourceFile,
+                        selectedPreset.rows,
+                        selectedPreset.cols,
+                        bgMode
+                    );
+                    if (active) {
+                        setStickers(result);
+                        // Auto scroll to results
+                         setTimeout(() => {
+                            resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    }
+                } catch (error) {
+                    if (active) {
+                        console.error(error);
+                        alert('処理中にエラーが発生しました。画像形式を確認してください。');
+                    }
+                } finally {
+                    if (active) {
+                        setIsProcessing(false);
+                    }
+                }
+            };
+            process();
+        }
+
+        return () => {
+            active = false;
+        };
+    }, [sourceFile, selectedPreset, bgMode]);
 
     // --- Handlers ---
     const handlePresetChange = (preset) => {
         setSelectedPreset(preset);
-        setStickers([]);
+        // sourceFileがあればuseEffectがkickされる
     };
 
-    const handleFileSelect = async (file) => {
+    const handleFileSelect = (file) => {
         if (!file) return;
-
-        setIsProcessing(true);
-        setStickers([]);
+        setStickers([]); // 新しいファイルなのでクリア
+        setSourceFile(file);
         sendGTMEvent({ event: 'file_upload_start', value: selectedPreset.id });
-
-        try {
-            const result = await splitImage(
-                file,
-                selectedPreset.rows,
-                selectedPreset.cols,
-                bgMode
-            );
-
-            setStickers(result);
-
-            // Auto scroll to results
-            setTimeout(() => {
-                resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-
-        } catch (error) {
-            console.error(error);
-            alert('処理中にエラーが発生しました。もう一度お試しください。');
-        } finally {
-            setIsProcessing(false);
-        }
+        // sourceFile更新によりuseEffectがkickされる
     };
 
     const handleDownload = async () => {
@@ -94,6 +113,9 @@ const ToolSection = () => {
 
     const handleReset = () => {
         setStickers([]);
+        setSourceFile(null);
+        setBgMode('none');
+        setIsProcessing(false);
         const el = document.getElementById('tool');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
@@ -135,7 +157,9 @@ const ToolSection = () => {
                                 {[
                                     { id: 'none', label: 'そのまま' },
                                     { id: 'white', label: '白を除去' },
-                                    { id: 'green', label: '緑を除去' },
+                                    { id: 'magenta', label: 'マゼンタ' },
+                                    { id: 'green', label: '緑(GB)' },
+                                    { id: 'blue', label: '青(BB)' },
                                 ].map(mode => (
                                     <button
                                         key={mode.id}
@@ -151,33 +175,40 @@ const ToolSection = () => {
 
                     {/* Workspace Area */}
                     <div className={styles.workspace}>
-                        {stickers.length === 0 ? (
+                        {stickers.length === 0 && !isProcessing ? (
                             <div className={styles.dropAreaContainer}>
                                 <DropZone onFileSelect={handleFileSelect} isProcessing={isProcessing} />
-                                {isProcessing && (
-                                    <div className={styles.processingOverlay}>
-                                        <div className={styles.spinner}>🍌</div>
-                                        <p style={{ fontWeight: 'bold' }}>作成中...</p>
-                                    </div>
-                                )}
+                                <div className={styles.notes}>
+                                    <p className={styles.requiredSize}>
+                                        <strong>キャンバスサイズ:</strong> {370 * selectedPreset.cols}px × {320 * selectedPreset.rows}px
+                                    </p>
+                                    <p className={styles.noteText}>※ このサイズの画像を1枚用意してください。<br />自動で {selectedPreset.cols}列 × {selectedPreset.rows}行 に分割・リサイズされます。</p>
+                                </div>
                             </div>
                         ) : (
                             <div className={styles.resultsArea} ref={resultRef}>
                                 <div className={styles.resultsHeader}>
                                     <h3 className={styles.resultsTitle}>
-                                        🎉 {stickers.length}個のスタンプができました！
+                                        {isProcessing ? '処理中...' : `🎉 ${stickers.length}個のスタンプができました！`}
                                     </h3>
                                     <div className={styles.resultActions}>
                                         <button onClick={handleReset} className="btn-secondary">
                                             はじめから
                                         </button>
-                                        <button onClick={handleDownload} className="btn-primary">
+                                        <button onClick={handleDownload} className="btn-primary" disabled={isProcessing || stickers.length === 0}>
                                             ZIPを保存する
                                         </button>
                                     </div>
                                 </div>
 
-                                <StickerGrid stickers={stickers} />
+                                {isProcessing && (
+                                     <div className={styles.processingOverlay}>
+                                         <div className={styles.spinner}>🍌</div>
+                                         <p style={{ fontWeight: 'bold' }}>作成中...</p>
+                                     </div>
+                                )}
+
+                                {!isProcessing && <StickerGrid stickers={stickers} />}
                             </div>
                         )}
                     </div>
