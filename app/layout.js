@@ -37,6 +37,9 @@ export const metadata = {
     title: "バナナスタンプ | LINEスタンプ作成を、3秒で。",
     description: "1枚の画像をドロップするだけで、LINEスタンプ用に自動分割・リサイズ。",
   },
+  alternates: {
+    canonical: "https://banana-stamp.com",
+  },
 };
 
 export default function RootLayout({ children }) {

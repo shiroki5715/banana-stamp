@@ -5,7 +5,9 @@ export default function robots() {
         rules: {
             userAgent: "*",
             allow: "/",
+            disallow: ["/_next/static/", "/api/"],
         },
         sitemap: "https://banana-stamp.com/sitemap.xml",
+        host: "https://banana-stamp.com",
     };
 }

@@ -6,10 +6,10 @@ export default function sitemap() {
 
     const routes = ["", "/howto", "/contact", "/terms", "/privacy-policy", "/guide/howto", "/guide/requirements"].map(
         (route) => ({
-            url: `${baseUrl}${route}`,
+            url: `${baseUrl}${route}/`,
             lastModified: lastModified,
             changeFrequency: "monthly",
-            priority: route === "" ? 1 : 0.8,
+            priority: route === "" ? 1.0 : 0.8,
         })
     );
 
