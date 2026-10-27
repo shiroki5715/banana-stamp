@@ -11,20 +11,20 @@
     "deploy": "next build && npx wrangler pages deploy out --project-name banana-stamp"
   },
   "dependencies": {
-    "@next/third-parties": "^16.1.1",
-    "file-saver": "^2.0.5",
-    "jszip": "^3.10.1",
-    "next": "16.0.7",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "@next/third-parties": "16.4.3",
+    "file-saver": "2.0.5",
+    "jszip": "3.10.2",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "16.0.7",
-    "eslint-config-prettier": "^10.1.8",
-    "lefthook": "^2.0.16",
-    "prettier": "^3.8.1",
-    "puppeteer": "^24.36.1"
+    "@eslint/eslintrc": "3.3.7",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "eslint-config-prettier": "10.1.8",
+    "lefthook": "2.2.2",
+    "prettier": "3.9.10",
+    "puppeteer": "25.16.0"
   }
 }
