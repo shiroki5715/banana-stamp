@@ -26,5 +26,7 @@
 
 The application is deployed at: **[https://banana-stamp.com](https://banana-stamp.com)**
 
+For normal deployment updates, use ordinary commit messages without deployment-skip markers. Existing hosting branch rules determine whether a push deploys.
+
 ## Documentation
 For detailed requirements and technical structure, see [REQUIREMENTS.md](./REQUIREMENTS.md).
