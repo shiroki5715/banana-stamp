@@ -3,6 +3,7 @@
 **Nanobanana Pro** is a smart, web-based tool for creating LINE Stickers that strictly adhere to LINE Creators Market guidelines.
 
 ## Features
+
 - **Smart Split**: Automatically splits a large user-defined grid (e.g., 4x2) into individual stickers.
 - **Auto-Resize**: Resizes images to meet the max W370 x H320 requirement while maintaining aspect ratio and even-numbered dimensions.
 - **Compliance**: Automatically adds the required 10px transparent margin.
@@ -11,11 +12,13 @@
 ## Getting Started
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Run the development server:
+
    ```bash
    npm run dev
    ```
@@ -29,4 +32,5 @@ The application is deployed at: **[https://banana-stamp.com](https://banana-stam
 For normal deployment updates, use ordinary commit messages without deployment-skip markers. Existing hosting branch rules determine whether a push deploys.
 
 ## Documentation
-For detailed requirements and technical structure, see [REQUIREMENTS.md](./REQUIREMENTS.md).
+
+For detailed requirements and technical structure, see [docs/rules.md](./docs/rules.md).
